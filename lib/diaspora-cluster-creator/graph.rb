@@ -43,7 +43,6 @@ module Diaspora
 
           others.flatten.compact.each do |other|
             @edges << [node,other] 
-            @edges << [other,node] 
           end
         end
       end
