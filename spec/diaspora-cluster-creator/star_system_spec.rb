@@ -19,10 +19,10 @@ describe StarSystem do
     end
   end
 
-  describe '#resource' do
+  describe '#resources' do
     it 'should be randomly rolled' do
       with_loaded_dice(1) do
-        subject.resource.must_equal 1
+        subject.resources.must_equal 1
       end
     end
   end
