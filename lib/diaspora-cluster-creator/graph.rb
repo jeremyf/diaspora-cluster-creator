@@ -19,7 +19,6 @@ module Diaspora
 
         private
         def draw!
-          @edges = Set.new
           @nodes = source.collect.to_a
           @nodes.each_with_index do |node, i|
             result = roller.roll

@@ -1,22 +1,29 @@
+require 'dependency_injector'
+
 module Diaspora
   module Cluster
     module Creator
       class StarSystem
-        attr_reader :technology
-        attr_reader :resources
-        attr_reader :environment
-        attr_reader :cluster
+        extend DependencyInjector
+        def_injector(:dice) { FateDice.new }
 
-        def initialize(cluster)
-          @cluster = cluster
-          @technology = roller.roll
-          @resources = roller.roll
-          @environment = roller.roll
+        attr_reader :context
+
+        def initialize(context)
+          @context = context
+        end
+
+        def technology
+          @technology ||= dice.roll
+        end
+
+        def resources
+          @resources ||= dice.roll
         end
         alias_method :resource, :resources
-        protected
-        def roller
-          @roller ||= FateDice.new
+
+        def environment
+          @environment ||= dice.roll
         end
       end
     end
