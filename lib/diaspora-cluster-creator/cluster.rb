@@ -27,7 +27,7 @@ module Diaspora
 
         protected
         def build_star_systems
-          @star_systems ||= star_system_guarantor.call( generate_first_pass )
+          @star_systems ||= star_system_guarantor.call(generate_first_pass)
         end
         def generate_first_pass
           (1..number_of_star_systems).each_with_object([]) {|i,mem| mem << star_system_builder.call(self)}

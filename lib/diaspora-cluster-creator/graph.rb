@@ -1,7 +1,11 @@
+require 'dependency_injector'
 module Diaspora
   module Cluster
     module Creator
       class Graph
+        extend DependencyInjector
+        def_injector(:dice) { FateDice.new }
+        
         attr_reader :source
         def initialize(source)
           @source = source
@@ -22,7 +26,7 @@ module Diaspora
           return if @__drawn__
           @nodes = source.collect.to_a
           @nodes.each_with_index do |node, i|
-            result = roller.roll
+            result = dice.roll
             if result < 0
               connect(node, @nodes[i])
             elsif result == 0
@@ -41,10 +45,6 @@ module Diaspora
             @edges << [node,other]
             @edges << [other,node]
           end
-        end
-
-        def roller
-          @roller ||= FateDice.new
         end
       end
     end
