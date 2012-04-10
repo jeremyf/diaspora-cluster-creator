@@ -55,7 +55,7 @@ class Graph
   end
 
   def roller
-    FateRoll.new
+    @roller ||= FateRoll.new
   end
 end
 
