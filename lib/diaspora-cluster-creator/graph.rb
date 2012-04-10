@@ -28,11 +28,11 @@ module Diaspora
           @nodes.each_with_index do |node, i|
             result = dice.roll
             if result < 0
-              connect(node, @nodes[i])
+              connect(node, @nodes[i+1])
             elsif result == 0
-              connect(node, @nodes[i], @nodes[i+1])
+              connect(node, @nodes[i+1], @nodes[i+2])
             elsif result > 0
-              connect(node, @nodes[i], @nodes[i+1], @nodes[i+2])
+              connect(node, @nodes[i+1], @nodes[i+2], @nodes[i+3])
             end
           end
           @__drawn__ = true
@@ -41,9 +41,9 @@ module Diaspora
         def connect(node, *others)
           @edges ||= Set.new
 
-          others.each do |other|
-            @edges << [node,other]
-            @edges << [other,node]
+          others.flatten.compact.each do |other|
+            @edges << [node,other] 
+            @edges << [other,node] 
           end
         end
       end

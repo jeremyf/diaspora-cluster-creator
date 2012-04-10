@@ -3,14 +3,6 @@ require 'star_system'
 
 describe StarSystem do
   subject { StarSystem.new( Object.new ) }
-
-  def with_loaded_dice(roll, object = subject)
-    loaded_dice = MiniTest::Mock.new
-    loaded_dice.expect(:roll, roll)
-    object.dice = loaded_dice
-    yield
-    loaded_dice.verify
-  end
   
   describe '#technology=' do
     it 'should be overridable' do
