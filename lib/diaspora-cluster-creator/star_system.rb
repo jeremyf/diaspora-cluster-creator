@@ -14,7 +14,7 @@ module Diaspora
         alias_method :resource, :resources
         protected
         def roller
-          @roller ||= FateDice.new(4)
+          @roller ||= FateDice.new
         end
       end
     end
