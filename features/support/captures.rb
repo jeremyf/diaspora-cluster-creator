@@ -1,0 +1,7 @@
+CAPTURE_INTEGER = Transform(/^(-?\d+)$/) { |count|
+  count.to_i
+}
+
+CAPTURE_DICE_TO_ROLL = Transform(/^(\d+)dF$/) { |dice_to_roll|
+  dice_to_roll.to_i
+}
