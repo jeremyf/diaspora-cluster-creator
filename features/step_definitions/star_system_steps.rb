@@ -1,13 +1,3 @@
-CAPTURE_SYSTEM_ATTRIBUTE = Transform(/^(technology|resources?|environment)$/) { |system_attribute_name|
-  system_attribute_name
-}
-module KnowsTheDomain
-  def current_star_system
-    @current_star_system ||= StarSystem.new
-  end
-end
-
-World(KnowsTheDomain)
 class StarSystem
   attr_reader :technology
   attr_reader :resources
@@ -21,7 +11,7 @@ class StarSystem
   alias_method :resource, :resources
   protected 
   def roller
-    @roller ||= FudgeRoll.new(4)
+    @roller ||= FateRoll.new(4)
   end
 end
 

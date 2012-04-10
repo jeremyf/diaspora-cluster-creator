@@ -5,3 +5,7 @@ CAPTURE_INTEGER = Transform(/^(-?\d+)$/) { |count|
 CAPTURE_DICE_TO_ROLL = Transform(/^(\d+)dF$/) { |dice_to_roll|
   dice_to_roll.to_i
 }
+
+CAPTURE_SYSTEM_ATTRIBUTE = Transform(/^(technology|resources?|environment)$/) { |system_attribute_name|
+  system_attribute_name
+}

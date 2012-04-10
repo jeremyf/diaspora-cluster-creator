@@ -1,6 +1,6 @@
-class FudgeRoll
+class FateRoll
   attr_reader :dice_count
-  def initialize(dice_count)
+  def initialize(dice_count = 4)
     self.dice_count = dice_count
   end
 
