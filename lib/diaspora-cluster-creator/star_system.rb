@@ -5,8 +5,10 @@ module Diaspora
         attr_reader :technology
         attr_reader :resources
         attr_reader :environment
+        attr_reader :cluster
 
-        def initialize
+        def initialize(cluster)
+          @cluster = cluster
           @technology = roller.roll
           @resources = roller.roll
           @environment = roller.roll

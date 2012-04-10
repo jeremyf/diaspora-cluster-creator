@@ -17,7 +17,12 @@ module Diaspora
         end
         
         def star_systems
-          @star_systems ||= (1..number_of_star_systems).each_with_object([]) {|i,mem| mem << StarSystem.new }
+          @star_systems ||= (1..number_of_star_systems).each_with_object([]) {|i,mem| mem << star_system_builder.call(self) }
+        end
+        
+        protected 
+        def star_system_builder
+          @star_system_builder ||= StarSystem.public_method(:new)
         end
       end
     end

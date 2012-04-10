@@ -9,11 +9,11 @@ module KnowsTheDomain
   end
   
   def current_roller
-    @current_roller ||= FateDice.new(4)
+    @current_roller ||= FateDice.new
   end
   
   def current_star_system
-    @current_star_system ||= StarSystem.new
+    @current_star_system ||= StarSystem.new(current_cluster)
   end
   def current_graph
     @current_graph ||= Graph.new(current_cluster)
