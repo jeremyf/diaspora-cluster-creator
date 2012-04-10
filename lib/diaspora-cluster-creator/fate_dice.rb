@@ -1,7 +1,7 @@
 module Diaspora
   module Cluster
     module Creator
-      class FateRoll
+      class FateDice
         attr_reader :dice_count
         def initialize(dice_count = 4)
           self.dice_count = dice_count

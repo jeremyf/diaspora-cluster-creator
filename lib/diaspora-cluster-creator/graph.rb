@@ -43,7 +43,7 @@ module Diaspora
         end
 
         def roller
-          @roller ||= FateRoll.new
+          @roller ||= FateDice.new
         end
       end
     end
