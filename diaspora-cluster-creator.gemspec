@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "cucumber"
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "minitest"
+  gem.add_runtime_dependency "ruby-graphviz"
   gem.required_rubygems_version = ">= 1.8.7"
   # gem.add_runtime_dependency "rest-client", "1.6.7"
   # gem.add_runtime_dependency "nokogiri", "1.5.0"
