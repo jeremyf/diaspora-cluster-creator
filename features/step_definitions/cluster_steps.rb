@@ -3,8 +3,6 @@ When /^I request a new cluster with (#{CAPTURE_INTEGER}) star systems?$/ do |cou
 end
 
 Then /^the output should have (#{CAPTURE_INTEGER}) nodes$/ do |count|
-  # current_cluster.generate!
-  # current_cluster.to_dot
   current_graph.nodes.count.must_equal count
 end
 

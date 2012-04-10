@@ -19,6 +19,7 @@ module Diaspora
 
         private
         def draw!
+          return if @__drawn__
           @nodes = source.collect.to_a
           @nodes.each_with_index do |node, i|
             result = roller.roll
@@ -30,6 +31,7 @@ module Diaspora
               connect(node, @nodes[i], @nodes[i+1], @nodes[i+2])
             end
           end
+          @__drawn__ = true
         end
 
         def connect(node, *others)
