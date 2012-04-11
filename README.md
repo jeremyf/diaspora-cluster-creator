@@ -1,6 +1,9 @@
 # Diaspora::Cluster::Creator
 
-TODO: Write a gem description
+Thus far, this is an over-engineered solution that does very little.
+
+I'm using it as a means of pushing out my understanding of cucumber and
+fast unit tests.
 
 ## Installation
 
@@ -18,10 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-Thus far, this is an over-engineered solution that does very little.
 
-I'm using it as a means of pushing out my understanding of cucumber and
-fast unit tests.
 
 ## Contributing
 
