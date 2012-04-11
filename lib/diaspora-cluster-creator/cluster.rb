@@ -1,6 +1,5 @@
 require 'dependency_injector'
-require "forwardable"
-require 'set'
+require_relative 'star_system'
 
 module Diaspora
   module Cluster

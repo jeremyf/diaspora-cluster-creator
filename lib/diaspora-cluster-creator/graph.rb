@@ -1,4 +1,7 @@
 require 'dependency_injector'
+require 'set'
+require_relative 'fate_dice'
+
 module Diaspora
   module Cluster
     module Creator
