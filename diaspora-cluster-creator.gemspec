@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'growl'
   
   gem.add_runtime_dependency "ruby-graphviz"
+  gem.add_runtime_dependency "main"
   gem.add_runtime_dependency "dependency_injector"
   gem.required_rubygems_version = ">= 1.8.7"
 end
