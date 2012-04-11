@@ -16,7 +16,7 @@ describe Graph do
       expected = Set.new
       expected << [1,2]
       expected << [2,3]
-      with_loaded_dice(-1) do
+      with_loaded_dice(-1, subject) do
         subject.edges.must_equal expected
       end
     end
@@ -26,7 +26,7 @@ describe Graph do
       expected << [1,2]
       expected << [1,3]
       expected << [2,3]
-      with_loaded_dice(0) do
+      with_loaded_dice(0, subject) do
         subject.edges.must_equal expected
       end
     end

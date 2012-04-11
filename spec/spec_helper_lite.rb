@@ -9,8 +9,7 @@ require 'diaspora-cluster-creator'
 include Diaspora::Cluster::Creator
 
 class MiniTest::Unit::TestCase
-
-  def with_loaded_dice(roll, object = subject)
+  def with_loaded_dice(roll, object)
     loaded_dice = MiniTest::Mock.new
     loaded_dice.expect(:roll, roll)
     object.dice = loaded_dice

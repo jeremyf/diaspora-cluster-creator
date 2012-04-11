@@ -13,7 +13,7 @@ describe StarSystem do
   
   describe '#technology' do
     it 'should be randomly rolled' do
-      with_loaded_dice(1) do
+      with_loaded_dice(1, subject) do
         subject.technology.must_equal 1
       end
     end
@@ -21,7 +21,7 @@ describe StarSystem do
 
   describe '#resources' do
     it 'should be randomly rolled' do
-      with_loaded_dice(1) do
+      with_loaded_dice(1, subject) do
         subject.resources.must_equal 1
       end
     end
@@ -29,7 +29,7 @@ describe StarSystem do
 
   describe '#environment' do
     it 'should be randomly rolled' do
-      with_loaded_dice(1) do
+      with_loaded_dice(1, subject) do
         subject.environment.must_equal 1
       end
     end
