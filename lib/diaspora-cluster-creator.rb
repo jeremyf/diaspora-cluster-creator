@@ -3,7 +3,16 @@ require_relative "diaspora-cluster-creator/version"
 module Diaspora
   module Cluster
     module Creator
-      # Your code goes here...
+      def self.run(params)
+        names = ('A'..'Z').to_a[0,params[:count] || 6]
+        cluster = Cluster.new( params[:names] || names )
+        graph = Graph.new(cluster)
+        template = Template.new(graph)
+        case File.extname(params[:filename])
+        when '.dot' then template.to_dot(params[:filename])
+        when '.png' then template.to_png(params[:filename])
+        end
+      end
     end
   end
 end

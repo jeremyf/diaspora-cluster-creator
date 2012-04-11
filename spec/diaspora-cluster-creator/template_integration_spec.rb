@@ -8,9 +8,9 @@ describe Template do
       @cluster = Cluster.new(@names)
       @graph = Graph.new(@cluster)
       @template = Template.new(@graph)
-      @template.to_dot.tap do |dot|
-        @names.each do |name|
-          dot.must_match(/"?#{name}"? \[label = "#{name}"\]/)
+      @template.to_s.tap do |dot|
+        @cluster.each do |system|
+          dot.must_include(%([label = #{system.label.inspect}]))
         end
         @graph.edges.each do |edge|
           dot.must_match(/"?#{edge.first}"? -- "?#{edge.last}"?/)

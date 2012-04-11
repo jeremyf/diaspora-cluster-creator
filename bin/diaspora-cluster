@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'main'
+require_relative '../lib/diaspora-cluster-creator'
+
+Main do
+  description 'Generate a diaspora cluster'
+  keyword('names', 'n') {
+    arity(-1)
+    cast :list_of_string
+    description "List of cluster names, comma separated."
+  }
+  keyword('count', 'c') {
+    arity 1
+    cast :integer
+    description "Instead of a list of names, provide a cluster count."
+  }
+  keyword('filename', 'f') {
+    required
+    arity 1
+    validate {|output| output =~ /\w\.(png|dot)$/i}
+    description "filename.DOT or filename.PNG"
+    default "cluster.dot"
+  }
+  def run
+    options = {:names => params[:names].value, :count => params[:count].value, :filename => params[:filename].value}
+    Diaspora::Cluster::Creator.run(options)
+  end
+end

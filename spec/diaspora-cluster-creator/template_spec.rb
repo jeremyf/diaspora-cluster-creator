@@ -11,9 +11,9 @@ describe Template do
     object
   }
 
-  describe '#to_dot' do
+  describe '#to_s' do
     it 'should render pretty' do
-      subject.to_dot.must_equal(
+      subject.to_s.must_equal(
       [
         %(graph #{graph.to_s.inspect} {),
         %(  a [label = "a"];),
