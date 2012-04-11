@@ -1,5 +1,5 @@
 When /^I request a new cluster with (#{CAPTURE_INTEGER}) star systems?$/ do |count|
-  set_current_cluster(count)
+  set_current_cluster(['a']*count)
 end
 
 Then /^the output should have (#{CAPTURE_INTEGER}) nodes$/ do |count|

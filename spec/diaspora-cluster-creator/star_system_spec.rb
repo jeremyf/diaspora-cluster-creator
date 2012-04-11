@@ -2,7 +2,7 @@ require_relative '../spec_helper_lite'
 require 'star_system'
 
 describe StarSystem do
-  subject { StarSystem.new( Object.new ) }
+  subject { StarSystem.new( Object.new, 1 ) }
   
   describe '#technology=' do
     it 'should be overridable' do
@@ -37,8 +37,8 @@ describe StarSystem do
   
   describe '#<=>' do
     it 'should be comparable to another star system' do
-      @system_a = StarSystem.new('')
-      @system_b = StarSystem.new('')
+      @system_a = StarSystem.new('', 1)
+      @system_b = StarSystem.new('', 2)
       with_loaded_dice(2, @system_a) do
         with_loaded_dice(1, @system_b) do
           @system_b.must_be :<, @system_a
@@ -49,9 +49,9 @@ describe StarSystem do
   
   describe '.guarantee!' do
     it 'should adjust technology rating without altering the sort order' do
-      @system_a = StarSystem.new('')
-      @system_b = StarSystem.new('')
-      @system_c = StarSystem.new('')
+      @system_a = StarSystem.new('', 1)
+      @system_b = StarSystem.new('', 2)
+      @system_c = StarSystem.new('', 3)
       order = 
       with_loaded_dice(1, @system_a) do
         with_loaded_dice(0, @system_b) do
@@ -68,9 +68,9 @@ describe StarSystem do
     end
 
     it 'should not adjust technology rating if one is already adequate' do
-      @system_a = StarSystem.new('')
-      @system_b = StarSystem.new('')
-      @system_c = StarSystem.new('')
+      @system_a = StarSystem.new('', 1)
+      @system_b = StarSystem.new('', 2)
+      @system_c = StarSystem.new('', 3)
       order = 
       with_loaded_dice(2, @system_a) do
         with_loaded_dice(0, @system_b) do
@@ -83,7 +83,7 @@ describe StarSystem do
 
       @system_a.technology.must_equal 2
       @system_b.technology.must_equal 0
-      @system_c.technology.must_equal -1
+      @system_c.technology.must_equal(-1)
     end
   end
 end

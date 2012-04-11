@@ -13,7 +13,7 @@ module KnowsTheDomain
   end
   
   def current_star_system
-    @current_star_system ||= StarSystem.new(current_cluster)
+    @current_star_system ||= StarSystem.new(current_cluster, 1)
   end
   def current_graph
     @current_graph ||= Graph.new(current_cluster)

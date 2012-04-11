@@ -32,9 +32,10 @@ module Diaspora
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
 
-        attr_reader :context
-        def initialize(context)
+        attr_reader :context, :name
+        def initialize(context, name)
           @context = context
+          @name = name
         end
 
         rolled_attribute :technology
@@ -48,6 +49,10 @@ module Diaspora
         
         def to_i
           self.class.rolled_attributes.inject(0) {|m,v| m += send(v) }
+        end
+        
+        def to_s
+          name.to_s
         end
       end
     end

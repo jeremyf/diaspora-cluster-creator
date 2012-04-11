@@ -11,10 +11,10 @@ module Diaspora
         def_injector(:star_system_builder) { StarSystem.public_method(:new) }
         def_injector(:star_system_guarantor) { StarSystem.public_method(:guarantee!) }
 
-        attr_reader :number_of_star_systems
+        attr_reader :names
 
-        def initialize(number_of_star_systems = 5)
-          @number_of_star_systems = number_of_star_systems.to_i
+        def initialize(*names)
+          @names = names.flatten.compact
         end
 
         def each
@@ -24,13 +24,17 @@ module Diaspora
         def star_systems
           @star_systems ||= build_star_systems
         end
+        
+        def to_s
+          'Cluster'
+        end
 
         protected
         def build_star_systems
           @star_systems ||= star_system_guarantor.call(generate_first_pass)
         end
         def generate_first_pass
-          (1..number_of_star_systems).each_with_object([]) {|i,mem| mem << star_system_builder.call(self)}
+          names.each_with_object([]) {|name,mem| mem << star_system_builder.call(self, name)}
         end
       end
     end

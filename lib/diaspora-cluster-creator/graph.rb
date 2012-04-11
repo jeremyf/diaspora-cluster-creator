@@ -11,6 +11,10 @@ module Diaspora
           @source = source
         end
 
+        def to_s
+          source.to_s
+        end
+
         def nodes
           draw!
           @nodes
