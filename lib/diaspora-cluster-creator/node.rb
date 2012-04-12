@@ -57,7 +57,7 @@ module Diaspora
 
         protected
         def set_name_and_attribute_values(name_with_attribtes)
-          /^(?<name>[^\[]*)(?:\[(?<encoded_attributes>[^\]]*)\])?$/ =~ name_with_attribtes
+          /^(?<name>[^(?:\[|\{)]*)(?:(?:\[|\{)(?<encoded_attributes>[^(?:\]|\})]*)(?:\]|\}))?$/ =~ name_with_attribtes
           @name = name.strip
           @attributes = extract_encoded_attributes(encoded_attributes)
         end

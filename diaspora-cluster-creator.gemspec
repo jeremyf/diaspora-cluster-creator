@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard-cucumber'
   gem.add_development_dependency 'growl'
   gem.add_development_dependency 'debugger'
+  gem.add_development_dependency 'aruba'
   
   gem.add_runtime_dependency "ruby-graphviz"
   gem.add_runtime_dependency "main"

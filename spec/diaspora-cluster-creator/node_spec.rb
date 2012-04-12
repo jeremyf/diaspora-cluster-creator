@@ -4,8 +4,8 @@ require 'node'
 describe Node do
   subject { Node.new( Object.new, 1 ) }
 
-  describe '#initialize with one attribute' do
-    subject { Node.new(Object.new, "Sparta [T1 E-4]") }
+  describe '#initialize with some attributes' do
+    subject { Node.new(Object.new, "Sparta{T1 E-4}") }
     it 'should have an extracted name' do
       subject.name.must_equal 'Sparta'
     end
