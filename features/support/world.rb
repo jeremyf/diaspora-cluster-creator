@@ -15,6 +15,11 @@ module KnowsTheDomain
   def current_star_system
     @current_star_system ||= StarSystem.new(current_cluster, 1)
   end
+
+  def set_current_star_system(value)
+    @current_star_system = StarSystem.new(current_cluster, value)
+  end
+  
   def current_graph
     @current_graph ||= Graph.new(current_cluster)
   end
