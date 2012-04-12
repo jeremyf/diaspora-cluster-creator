@@ -1,6 +1,7 @@
 require 'dependency_injector'
 require 'set'
 require_relative 'fate_dice'
+require_relative 'attribute'
 
 module Diaspora
   module Cluster
@@ -15,7 +16,7 @@ module Diaspora
         def self.rolled_attribute(attribute_name, abbreviation = nil)
           rolled_attributes << attribute_name.to_s
           define_method(attribute_name) do
-            instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", dice.roll)
+            instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", attribute_builder.call(attribute_name).value = dice.roll )
             instance_variable_get("@#{attribute_name}")
           end
           define_method("#{attribute_name}=") do |value|
@@ -32,6 +33,7 @@ module Diaspora
 
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
+        def_injector(:attribute_builder) { Attribute.public_method(:new) }
 
         attr_reader :context, :name
         def initialize(context, name_with_attribute_values)
