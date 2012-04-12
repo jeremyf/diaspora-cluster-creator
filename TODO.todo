@@ -1,0 +1,2 @@
+– Allow different attributes to be passed.
+– The above implies an Attribute class; And a Config class as well.
