@@ -42,37 +42,39 @@ module Diaspora
         rolled_attribute :technology, :t
         rolled_attribute :resources, :r
         rolled_attribute :environment, :e
-        
+
         include Comparable
         def <=>(other)
           to_i <=> other.to_i
         end
-        
+
         def to_i
           self.class.rolled_attributes.inject(0) {|m,v| m += send(v) }
         end
-        
+
         def to_s
           name.to_s
         end
-        
+
         def label
           "#{name}\nT#{technology} R#{resources} E#{environment}"
         end
-        
+
         protected
         def set_name_and_attributes(name_with_attribtes)
-          name, encoded_attributes = name_with_attribtes.strip.split(/ *\[/)
-          @name = name
+          /^(?<name>[^\[]*)(?:\[(?<encoded_attributes>[^\]]*)\])?$/ =~ name_with_attribtes
+          @name = name.strip
+          @attributes = extract_encoded_attributes(encoded_attributes)
+        end
+        def extract_encoded_attributes(encoded_attributes)
           if encoded_attributes
-            encoded_attributes.sub(/\]$/,'').split.collect(&:strip).each do |option|
-              original, attribute_prefix, value = option.match(/(\w) *(-?\d)/).to_a
+            encoded_attributes.split(/ +/).collect(&:strip).each do |option|
+              /(?<attribute_prefix>\w) *(?<attribute_value>-?\d)/ =~ option
               if attribute_name = self.class.rolled_attributes.detect {|roled_attribute| roled_attribute =~ /^#{attribute_prefix}/i}
-                send("#{attribute_name}=",value)
+                send("#{attribute_name}=",attribute_value)
               end
             end
           end
-          @name
         end
       end
     end
