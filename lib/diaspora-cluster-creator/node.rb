@@ -34,9 +34,9 @@ module Diaspora
         def_injector(:dice) { FateDice.new }
 
         attr_reader :context, :name
-        def initialize(context, name)
+        def initialize(context, name_with_attributes)
           @context = context
-          set_name(name.to_s)
+          set_name_and_attributes(name_with_attributes.to_s)
         end
 
         rolled_attribute :technology, :t
@@ -61,11 +61,11 @@ module Diaspora
         end
         
         protected
-        def set_name(name_with_attribtes)
-          name, options = name_with_attribtes.strip.split(/ *\[/)
+        def set_name_and_attributes(name_with_attribtes)
+          name, encoded_attributes = name_with_attribtes.strip.split(/ *\[/)
           @name = name
-          if options
-            options.sub(/\]$/,'').split.collect(&:strip).each do |option|
+          if encoded_attributes
+            encoded_attributes.sub(/\]$/,'').split.collect(&:strip).each do |option|
               original, attribute_prefix, value = option.match(/(\w) *(-?\d)/).to_a
               if attribute_name = self.class.rolled_attributes.detect {|roled_attribute| roled_attribute =~ /^#{attribute_prefix}/i}
                 send("#{attribute_name}=",value)
