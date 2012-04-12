@@ -1,4 +1,4 @@
-When /^I request a new cluster with (#{CAPTURE_INTEGER}) star systems?$/ do |count|
+When /^I request a new cluster with (#{CAPTURE_INTEGER}) node systems?$/ do |count|
   set_current_cluster(['a']*count)
 end
 

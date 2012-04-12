@@ -3,7 +3,7 @@ require 'template'
 
 describe Template do
   describe '#to_dot' do
-    it 'should remder star systems and their connections' do
+    it 'should remder node systems and their connections' do
       @names = ["Hello", "World", "Foo", "Bar"]
       @cluster = Cluster.new(@names)
       @graph = Graph.new(@cluster)

@@ -5,7 +5,7 @@ require_relative 'fate_dice'
 module Diaspora
   module Cluster
     module Creator
-      class StarSystem
+      class Node
         def self.rolled_attributes
           unless defined?(@@rolled_attributes)
             @@rolled_attributes = Set.new
@@ -22,12 +22,12 @@ module Diaspora
             instance_variable_set("@#{attribute_name}", value.to_i)
           end
         end
-        def self.guarantee!(star_systems)
-          return star_systems if star_systems.detect {|ss| ss.technology >= 2 }
-          working = star_systems.sort
+        def self.guarantee!(nodes)
+          return nodes if nodes.detect {|ss| ss.technology >= 2 }
+          working = nodes.sort
           working.first.technology = 2
           working.last.technology = 2
-          star_systems
+          nodes
         end
 
         extend DependencyInjector

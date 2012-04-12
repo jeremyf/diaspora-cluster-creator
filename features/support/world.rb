@@ -12,12 +12,12 @@ module KnowsTheDomain
     @current_roller ||= FateDice.new
   end
   
-  def current_star_system
-    @current_star_system ||= StarSystem.new(current_cluster, 1)
+  def current_node
+    @current_node ||= Node.new(current_cluster, 1)
   end
 
-  def set_current_star_system(value)
-    @current_star_system = StarSystem.new(current_cluster, value)
+  def set_current_node(value)
+    @current_node = Node.new(current_cluster, value)
   end
   
   def current_graph

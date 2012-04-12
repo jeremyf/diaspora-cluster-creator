@@ -1,5 +1,5 @@
 require 'dependency_injector'
-require_relative 'star_system'
+require_relative 'node'
 
 module Diaspora
   module Cluster
@@ -7,8 +7,8 @@ module Diaspora
       class Cluster
         include Enumerable
         extend DependencyInjector
-        def_injector(:star_system_builder) { StarSystem.public_method(:new) }
-        def_injector(:star_system_guarantor) { StarSystem.public_method(:guarantee!) }
+        def_injector(:node_builder) { Node.public_method(:new) }
+        def_injector(:node_guarantor) { Node.public_method(:guarantee!) }
 
         attr_reader :names
 
@@ -17,11 +17,11 @@ module Diaspora
         end
 
         def each
-          star_systems.each {|ss| yield(ss)}
+          nodes.each {|ss| yield(ss)}
         end
 
-        def star_systems
-          @star_systems ||= build_star_systems
+        def nodes
+          @nodes ||= build_nodes
         end
         
         def to_s
@@ -29,11 +29,11 @@ module Diaspora
         end
 
         protected
-        def build_star_systems
-          @star_systems ||= star_system_guarantor.call(generate_first_pass)
+        def build_nodes
+          @nodes ||= node_guarantor.call(generate_first_pass)
         end
         def generate_first_pass
-          names.each_with_object([]) {|name,mem| mem << star_system_builder.call(self, name)}
+          names.each_with_object([]) {|name,mem| mem << node_builder.call(self, name)}
         end
       end
     end

@@ -20,5 +20,5 @@ end
 require_relative "diaspora-cluster-creator/fate_dice"
 require_relative "diaspora-cluster-creator/graph"
 require_relative "diaspora-cluster-creator/cluster"
-require_relative "diaspora-cluster-creator/star_system"
+require_relative "diaspora-cluster-creator/node"
 require_relative "diaspora-cluster-creator/template"

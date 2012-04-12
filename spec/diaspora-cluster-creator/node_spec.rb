@@ -1,11 +1,11 @@
 require_relative '../spec_helper_lite'
-require 'star_system'
+require 'node'
 
-describe StarSystem do
-  subject { StarSystem.new( Object.new, 1 ) }
+describe Node do
+  subject { Node.new( Object.new, 1 ) }
 
   describe '#initialize with one attribute' do
-    subject { StarSystem.new(Object.new, "Sparta [T1 E-4]") }
+    subject { Node.new(Object.new, "Sparta [T1 E-4]") }
     it 'should have an extracted name' do
       subject.name.must_equal 'Sparta'
     end
@@ -50,12 +50,12 @@ describe StarSystem do
   end
 
   describe '#<=>' do
-    it 'should be comparable to another star system' do
-      @system_a = StarSystem.new('', 1)
-      @system_b = StarSystem.new('', 2)
-      with_loaded_dice(2, @system_a) do
-        with_loaded_dice(1, @system_b) do
-          @system_b.must_be :<, @system_a
+    it 'should be comparable to another node node' do
+      @node_a = Node.new('', 1)
+      @node_b = Node.new('', 2)
+      with_loaded_dice(2, @node_a) do
+        with_loaded_dice(1, @node_b) do
+          @node_b.must_be :<, @node_a
         end
       end
     end
@@ -63,41 +63,41 @@ describe StarSystem do
 
   describe '.guarantee!' do
     it 'should adjust technology rating without altering the sort order' do
-      @system_a = StarSystem.new('', 1)
-      @system_b = StarSystem.new('', 2)
-      @system_c = StarSystem.new('', 3)
+      @node_a = Node.new('', 1)
+      @node_b = Node.new('', 2)
+      @node_c = Node.new('', 3)
       order =
-      with_loaded_dice(1, @system_a) do
-        with_loaded_dice(0, @system_b) do
-          with_loaded_dice(-1, @system_c) do
-            input = [@system_b, @system_c, @system_a]
-            StarSystem.guarantee!(input).must_equal input
+      with_loaded_dice(1, @node_a) do
+        with_loaded_dice(0, @node_b) do
+          with_loaded_dice(-1, @node_c) do
+            input = [@node_b, @node_c, @node_a]
+            Node.guarantee!(input).must_equal input
           end
         end
       end
 
-      @system_a.technology.must_equal 2
-      @system_b.technology.must_equal 0
-      @system_c.technology.must_equal 2
+      @node_a.technology.must_equal 2
+      @node_b.technology.must_equal 0
+      @node_c.technology.must_equal 2
     end
 
     it 'should not adjust technology rating if one is already adequate' do
-      @system_a = StarSystem.new('', 1)
-      @system_b = StarSystem.new('', 2)
-      @system_c = StarSystem.new('', 3)
+      @node_a = Node.new('', 1)
+      @node_b = Node.new('', 2)
+      @node_c = Node.new('', 3)
       order =
-      with_loaded_dice(2, @system_a) do
-        with_loaded_dice(0, @system_b) do
-          with_loaded_dice(-1, @system_c) do
-            input = [@system_b, @system_c, @system_a]
-            StarSystem.guarantee!(input).must_equal input
+      with_loaded_dice(2, @node_a) do
+        with_loaded_dice(0, @node_b) do
+          with_loaded_dice(-1, @node_c) do
+            input = [@node_b, @node_c, @node_a]
+            Node.guarantee!(input).must_equal input
           end
         end
       end
 
-      @system_a.technology.must_equal 2
-      @system_b.technology.must_equal 0
-      @system_c.technology.must_equal(-1)
+      @node_a.technology.must_equal 2
+      @node_b.technology.must_equal 0
+      @node_c.technology.must_equal(-1)
     end
   end
 end
