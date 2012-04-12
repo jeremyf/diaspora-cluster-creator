@@ -1,5 +1,6 @@
 require 'dependency_injector'
 require_relative 'node'
+require_relative 'guarantor'
 
 module Diaspora
   module Cluster
@@ -8,7 +9,7 @@ module Diaspora
         include Enumerable
         extend DependencyInjector
         def_injector(:node_builder) { Node.public_method(:new) }
-        def_injector(:node_guarantor) { Node.public_method(:guarantee!) }
+        def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
 
         attr_reader :names
 
