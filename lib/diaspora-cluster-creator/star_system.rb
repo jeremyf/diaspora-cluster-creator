@@ -12,8 +12,8 @@ module Diaspora
           end
           @@rolled_attributes
         end
-        def self.rolled_attribute(attribute_name)
-          rolled_attributes << attribute_name
+        def self.rolled_attribute(attribute_name, abbreviation = nil)
+          rolled_attributes << attribute_name.to_s
           define_method(attribute_name) do
             instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", dice.roll)
             instance_variable_get("@#{attribute_name}")
@@ -36,12 +36,12 @@ module Diaspora
         attr_reader :context, :name
         def initialize(context, name)
           @context = context
-          @name = name
+          set_name(name.to_s)
         end
 
-        rolled_attribute :technology
-        rolled_attribute :resources
-        rolled_attribute :environment
+        rolled_attribute :technology, :t
+        rolled_attribute :resources, :r
+        rolled_attribute :environment, :e
         
         include Comparable
         def <=>(other)
@@ -58,6 +58,21 @@ module Diaspora
         
         def label
           "#{name}\nT#{technology} R#{resources} E#{environment}"
+        end
+        
+        protected
+        def set_name(name_with_attribtes)
+          name, options = name_with_attribtes.strip.split(/ *\[/)
+          @name = name
+          if options
+            options.sub(/\]$/,'').split.collect(&:strip).each do |option|
+              original, attribute_prefix, value = option.match(/(\w) *(-?\d)/).to_a
+              if attribute_name = self.class.rolled_attributes.detect {|roled_attribute| roled_attribute =~ /^#{attribute_prefix}/i}
+                send("#{attribute_name}=",value)
+              end
+            end
+          end
+          @name
         end
       end
     end
