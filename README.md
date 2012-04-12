@@ -7,6 +7,8 @@ fast unit tests.
 
 ## Installation
 
+You will need to install [Graphviz](http://graphviz.org)
+
 Add this line to your application's Gemfile:
 
     gem 'diaspora-cluster-creator'
@@ -21,7 +23,21 @@ Or install it yourself as:
 
 ## Usage
 
+Once installed you can ask diaspora-cluster for help
 
+	$ diaspora-cluster -h
+
+Or request the defaults
+
+	$ diaspora-cluster
+
+Or you can specify names
+
+	$ diaspora-cluster names="Sparta [T2 E1 R3], Athens [T-2], Corinth [R3 T2 E1], Ephesus, Rhodes [T4]"
+
+Or perhaps you prefer a PNG
+
+	$ diaspora-cluster filename=output.png names="Sparta [T2 E1 R3], Athens [T-2], Corinth [R3 T2 E1], Ephesus, Rhodes [T4]"
 
 ## Contributing
 
