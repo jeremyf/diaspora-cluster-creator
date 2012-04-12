@@ -12,6 +12,7 @@ module Diaspora
         case File.extname(filename)
         when '.dot' then template.to_dot(params[:filename])
         when '.png' then template.to_png(params[:filename])
+        when '.svg' then template.to_svg(params[:filename])
         else
           STDOUT.write template.to_s
         end

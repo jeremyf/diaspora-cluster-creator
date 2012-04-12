@@ -14,8 +14,20 @@ Scenario: Specify no filename
   }
   """
 
-Scenario: Specify no filename
-  When I run `diaspora-cluster filename=cluster.dot`
-  Then it should pass with:
+Scenario Outline: I want files of different formats
+  When I run `diaspora-cluster filename=cluster.<FORMAT>`
+  Then the following files should exist:
+    | cluster.<FORMAT> |
+  
+  Examples:
+  | FORMAT |
+  | png    |
+  | dot    |
+  | svg    |
+  
+Scenario: With -h
+  When I run `diaspora-cluster -h`
+  Then it should fail with regex:
   """
+  DESCRIPTION\n\s*Generate a diaspora cluster
   """

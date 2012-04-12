@@ -18,6 +18,9 @@ module Diaspora
         def to_png(filename = 'graph.png')
           canvas.output(:png => "#{filename}")
         end
+        def to_svg(filename = 'graph.svg')
+          canvas.output(:svg => "#{filename}")
+        end
         protected
         def canvas
           template = GraphViz.new(graph.to_s, :type => :graph )

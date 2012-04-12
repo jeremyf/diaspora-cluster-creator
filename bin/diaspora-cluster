@@ -17,8 +17,8 @@ Main do
   }
   keyword('filename', 'f') {
     arity 1
-    validate {|output| output =~ /\w\.(png|dot)$/i}
-    description "filename.DOT or filename.PNG"
+    validate {|output| output =~ /\w\.(png|svg|dot)$/i}
+    description ".png, .svg, .dot formats"
   }
   def run
     options = {:names => params[:names].value, :count => params[:count].value, :filename => params[:filename].value}
