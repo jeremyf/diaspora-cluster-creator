@@ -23,13 +23,6 @@ module Diaspora
             instance_variable_set("@#{attribute_name}", value.to_i)
           end
         end
-        def self.guarantee!(nodes)
-          return nodes if nodes.detect {|ss| ss.technology >= 2 }
-          working = nodes.sort
-          working.first.technology = 2
-          working.last.technology = 2
-          nodes
-        end
 
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
