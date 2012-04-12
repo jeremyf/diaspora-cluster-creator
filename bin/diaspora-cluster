@@ -16,11 +16,9 @@ Main do
     description "Instead of a list of names, provide a cluster count."
   }
   keyword('filename', 'f') {
-    required
     arity 1
     validate {|output| output =~ /\w\.(png|dot)$/i}
     description "filename.DOT or filename.PNG"
-    default "cluster.dot"
   }
   def run
     options = {:names => params[:names].value, :count => params[:count].value, :filename => params[:filename].value}
