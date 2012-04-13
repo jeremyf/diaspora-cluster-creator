@@ -24,7 +24,32 @@ Scenario: Specify without parameters
     A -- B
   }
   """
-  
+
+Scenario: Specify with count parameters
+  When I run `diaspora-cluster count=10`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    A \[label = "A\nT-?\d R-?\d E-?\d"\];
+    B \[label = "B\nT-?\d R-?\d E-?\d"\];
+    C \[label = "C\nT-?\d R-?\d E-?\d"\];
+    D \[label = "D\nT-?\d R-?\d E-?\d"\];
+    E \[label = "E\nT-?\d R-?\d E-?\d"\];
+    F \[label = "F\nT-?\d R-?\d E-?\d"\];
+    G \[label = "G\nT-?\d R-?\d E-?\d"\];
+    H \[label = "H\nT-?\d R-?\d E-?\d"\];
+    I \[label = "I\nT-?\d R-?\d E-?\d"\];
+    J \[label = "J\nT-?\d R-?\d E-?\d"\];
+    A -- B
+    B -- C
+    C -- D
+    D -- E
+    E -- F
+    F -- G
+    H -- I
+    I -- J
+  }
+  """
 
 Scenario Outline: I want files of different formats
   When I run `diaspora-cluster filename=cluster.<FORMAT>`
