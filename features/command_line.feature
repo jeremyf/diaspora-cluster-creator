@@ -64,7 +64,20 @@ Scenario Outline: I want files of different formats
   
 Scenario: With -h
   When I run `diaspora-cluster -h`
-  Then it should fail with regex:
+  Then it should fail with output like:
   """
-  DESCRIPTION\n\s*Generate a diaspora cluster
+  NAME
+    diaspora-cluster
+  
+  SYNOPSIS
+    diaspora-cluster \[names=names\] \[count=count\] \[filename=filename\]
+  
+  DESCRIPTION
+    Generate a diaspora cluster
+  
+  PARAMETERS
+    names
+    count
+    filename
+    --help, -h
   """
