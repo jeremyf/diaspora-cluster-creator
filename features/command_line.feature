@@ -14,6 +14,18 @@ Scenario: Specify no filename
   }
   """
 
+Scenario: Specify without parameters
+  When I run `diaspora-cluster`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    A \[label = "A\nT-?\d R-?\d E-?\d"\];
+    B \[label = "B\nT-?\d R-?\d E-?\d"\];
+    A -- B
+  }
+  """
+  
+
 Scenario Outline: I want files of different formats
   When I run `diaspora-cluster filename=cluster.<FORMAT>`
   Then the following files should exist:
