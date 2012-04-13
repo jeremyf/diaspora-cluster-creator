@@ -2,7 +2,8 @@ require_relative '../spec_helper_lite'
 require 'cluster'
 
 describe Cluster do
-  subject { Cluster.new(names) }
+  subject { Cluster.new(settings, names) }
+  let(:settings) { Object.new }
   let(:names) { ['a'] }
 
   describe '#each' do

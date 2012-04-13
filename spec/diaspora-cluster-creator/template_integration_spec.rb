@@ -5,7 +5,7 @@ describe Template do
   describe '#to_dot' do
     it 'should remder node systems and their connections' do
       @names = ["Hello", "World", "Foo", "Bar"]
-      @cluster = Cluster.new(@names)
+      @cluster = Cluster.new(Settings.new, @names)
       @graph = Graph.new(@cluster)
       @template = Template.new(@graph)
       @template.to_s.tap do |dot|

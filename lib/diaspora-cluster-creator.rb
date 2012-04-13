@@ -6,7 +6,7 @@ module Diaspora
       def self.run(params)
         filename = params[:filename].to_s
         names = ('A'..'Z').to_a[0,params[:count] || 6]
-        cluster = Cluster.new( params[:names] || names )
+        cluster = Cluster.new( Settings.new, params[:names] || names )
         graph = Graph.new(cluster)
         template = Template.new(graph)
         case File.extname(filename)
@@ -26,3 +26,5 @@ require_relative "diaspora-cluster-creator/graph"
 require_relative "diaspora-cluster-creator/cluster"
 require_relative "diaspora-cluster-creator/node"
 require_relative "diaspora-cluster-creator/template"
+require_relative "diaspora-cluster-creator/attribute"
+require_relative "diaspora-cluster-creator/settings"

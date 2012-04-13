@@ -12,9 +12,11 @@ module Diaspora
         def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
 
         attr_reader :names
+        attr_reader :settings
 
-        def initialize(*names)
-          @names = names.flatten.compact
+        def initialize(settings, names = [])
+          @settings = settings
+          @names = names
         end
 
         def each
