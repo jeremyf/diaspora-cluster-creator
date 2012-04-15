@@ -6,6 +6,30 @@ describe Cluster do
   let(:attribute_names) { ['tech'] }
   let(:names) { ['a'] }
 
+  describe '#each_node' do
+    it 'should yield the nodes' do
+      expected_output = [1,2,3]
+      subject.node_collection_builder = lambda { expected_output }
+      @yielded = []
+      subject.each_node do |node|
+        @yielded << node
+      end
+      @yielded.must_equal(expected_output)
+    end
+  end
+
+  describe '#each_edge' do
+    it 'should yield the edges' do
+      expected_output = [1,2,3]
+      subject.edge_drawer = lambda { expected_output }
+      @yielded = []
+      subject.each_edge do |edge|
+        @yielded << edge
+      end
+      @yielded.must_equal(expected_output)
+    end
+  end
+
   describe '#nodes' do
     it 'should delegate node creation to node_maker' do
       expected_output = ['output']

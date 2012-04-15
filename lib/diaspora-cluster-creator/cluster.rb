@@ -24,11 +24,11 @@ module Diaspora
         def each_node
           nodes.each { |node| yield(node) }
         end
-        
+
         def each_edge
           edges.each { |edge| yield(edge) }
         end
-        
+
         def nodes
           @nodes ||= node_collection_builder.call
         end
