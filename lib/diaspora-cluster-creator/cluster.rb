@@ -12,11 +12,12 @@ module Diaspora
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
 
         attr_reader :names
+        attr_reader :attribute_names
         attr_reader :settings
 
-        def initialize(settings, names = [])
-          @settings = settings
+        def initialize(names = [], attribute_names = [])
           @names = names
+          @attribute_names = attribute_names
         end
 
         def each_node

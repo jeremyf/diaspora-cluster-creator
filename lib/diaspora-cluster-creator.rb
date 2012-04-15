@@ -6,7 +6,7 @@ module Diaspora
       def self.run(params)
         filename = params[:filename].to_s
         names = ('A'..'Z').to_a[0,params[:count] || 6]
-        cluster = Cluster.new( Settings.new, params[:names] || names )
+        cluster = Cluster.new(params[:names] || names )
         template = Template.new(cluster)
         case File.extname(filename)
         when '.dot' then template.to_dot(params[:filename])

@@ -2,8 +2,8 @@ require_relative '../spec_helper_lite'
 require 'cluster'
 
 describe Cluster do
-  subject { Cluster.new(settings, names) }
-  let(:settings) { Object.new }
+  subject { Cluster.new(names, attribute_names) }
+  let(:attribute_names) { ['tech'] }
   let(:names) { ['a'] }
 
   describe '#nodes' do

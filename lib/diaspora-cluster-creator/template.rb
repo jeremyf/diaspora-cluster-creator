@@ -9,6 +9,7 @@ module Diaspora
           raise RuntimeError unless cluster.respond_to?(:each_edge)
           @cluster = cluster
         end
+        
         def to_s
           canvas.to_s
         end
@@ -23,21 +24,22 @@ module Diaspora
         end
         protected
         def canvas
-          template = GraphViz.new(cluster.to_s, :type => :graph )
-          nodes = {}
+          return @canvas if @canvas
+          @canvas = GraphViz.new(cluster.to_s, :type => :graph )
+
           cluster.each_node do |node|
             options = {}
             options[:label] = (node.respond_to?(:label) ? node.label : node.to_s)
-            nodes[node] = template.add_nodes(node.to_s, options)
+            @canvas.add_nodes(node.to_s, options)
           end
 
           cluster.each_edge do |edge|
             to = edge[0]
             from = edge[1]
-            template.add_edges(to.to_s, from.to_s)
+            @canvas.add_edges(to.to_s, from.to_s)
           end
 
-          template
+          @canvas
         end
       end
     end

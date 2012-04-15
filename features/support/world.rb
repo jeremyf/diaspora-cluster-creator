@@ -1,14 +1,11 @@
 module KnowsTheDomain
   include ::Diaspora::Cluster::Creator
-  def current_settings
-    @current_settings ||= Settings.new
-  end
   def set_current_cluster(value)
-    @current_cluster = Cluster.new(current_settings,value)
+    @current_cluster = Cluster.new(value)
   end
   
   def current_cluster
-    @current_cluster ||= Cluster.new(current_settings)
+    @current_cluster ||= Cluster.new
   end
   
   def current_roller
