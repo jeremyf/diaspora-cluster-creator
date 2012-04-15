@@ -5,8 +5,15 @@ describe Template do
   subject { Template.new(graph) }
   let(:graph) {
     object = Object.new
-    def object.edges; [['a','b'],['a','c']]; end
-    def object.nodes; ['a','b','c']; end
+    def object.each_node
+      yield('a')
+      yield('b')
+      yield('c')
+    end
+    def object.each_edge
+      yield(['a','b'])
+      yield(['a','c'])
+    end
     def object.to_s; "Custom Name"; end
     object
   }

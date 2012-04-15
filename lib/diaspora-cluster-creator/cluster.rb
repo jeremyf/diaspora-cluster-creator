@@ -7,7 +7,6 @@ module Diaspora
   module Cluster
     module Creator
       class Cluster
-        include Enumerable
         extend DependencyInjector
         def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
@@ -20,8 +19,12 @@ module Diaspora
           @names = names
         end
 
-        def each
+        def each_node
           nodes.each { |node| yield(node) }
+        end
+        
+        def each_edge
+          edges.each { |edge| yield(edge) }
         end
         
         def nodes
