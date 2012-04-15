@@ -1,19 +1,6 @@
 @announce
 Feature: Provide tested examples of the command-line interface
 
-Scenario: Specify no filename
-  When I run `diaspora-cluster names="Sparta{T2 E-1 R0},Athens{T1 E1 R0}"`
-  Then it should pass with:
-  """
-  graph Cluster {
-    Sparta [label = "Sparta
-  T2 R0 E-1"];
-    Athens [label = "Athens
-  T1 R0 E1"];
-    Sparta -- Athens
-  }
-  """
-
 Scenario: Specify without parameters
   When I run `diaspora-cluster`
   Then it should pass with output like:
@@ -26,6 +13,50 @@ Scenario: Specify without parameters
     A -- B
   }
   """
+
+Scenario: Specify with names
+  When I run `diaspora-cluster names="Sparta{T2 E-1 R0},Athens{T1 E1 R0}"`
+  Then it should pass with:
+  """
+  graph Cluster {
+    Sparta [label = "Sparta
+  T2 R0 E-1"];
+    Athens [label = "Athens
+  T1 R0 E1"];
+    Sparta -- Athens
+  }
+  """
+
+Scenario: With -h
+  When I run `diaspora-cluster -h`
+  Then it should fail with output like:
+  """
+  NAME
+    diaspora-cluster
+  
+  SYNOPSIS
+    diaspora-cluster \[names=names\] \[count=count\] \[filename=filename\]
+  
+  DESCRIPTION
+    Generate a diaspora cluster
+  
+  PARAMETERS
+    names
+    count
+    filename
+    --help, -h
+  """
+
+Scenario Outline: I want files of different formats
+  When I run `diaspora-cluster filename=cluster.<FORMAT>`
+  Then the following files should exist:
+    | cluster.<FORMAT> |
+
+  Examples:
+  | FORMAT |
+  | png    |
+  | dot    |
+  | svg    |
 
 Scenario: Specify with count parameters
   When I run `diaspora-cluster count=10`
@@ -61,35 +92,4 @@ Scenario: Specify with count parameters
     H -- I
     I -- J
   }
-  """
-
-Scenario Outline: I want files of different formats
-  When I run `diaspora-cluster filename=cluster.<FORMAT>`
-  Then the following files should exist:
-    | cluster.<FORMAT> |
-  
-  Examples:
-  | FORMAT |
-  | png    |
-  | dot    |
-  | svg    |
-  
-Scenario: With -h
-  When I run `diaspora-cluster -h`
-  Then it should fail with output like:
-  """
-  NAME
-    diaspora-cluster
-  
-  SYNOPSIS
-    diaspora-cluster \[names=names\] \[count=count\] \[filename=filename\]
-  
-  DESCRIPTION
-    Generate a diaspora cluster
-  
-  PARAMETERS
-    names
-    count
-    filename
-    --help, -h
   """
