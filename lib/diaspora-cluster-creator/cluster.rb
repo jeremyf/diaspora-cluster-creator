@@ -8,15 +8,12 @@ module Diaspora
       class Cluster
         include Enumerable
         extend DependencyInjector
-        def_injector(:node_builder) { Node.public_method(:new) }
-        def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
         def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
-        def_injector(:node_collection_builder) { lambda { node_guarantor.call(generate_first_pass) } }
+        def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
         def_injector(:dice) { FateDice.new }
 
         attr_reader :names
         attr_reader :settings
-        attr_reader :edges
 
         def initialize(settings, names = [])
           @settings = settings
