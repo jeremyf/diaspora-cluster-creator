@@ -19,8 +19,10 @@ Scenario: Specify without parameters
   Then it should pass with output like:
   """
   graph Cluster {
-    A \[label = "A\nT-?\d R-?\d E-?\d"\];
-    B \[label = "B\nT-?\d R-?\d E-?\d"\];
+    A \[label = "A
+  T-?\d R-?\d E-?\d"\];
+    B \[label = "B
+  T-?\d R-?\d E-?\d"\];
     A -- B
   }
   """
@@ -30,16 +32,26 @@ Scenario: Specify with count parameters
   Then it should pass with output like:
   """
   graph Cluster {
-    A \[label = "A\nT-?\d R-?\d E-?\d"\];
-    B \[label = "B\nT-?\d R-?\d E-?\d"\];
-    C \[label = "C\nT-?\d R-?\d E-?\d"\];
-    D \[label = "D\nT-?\d R-?\d E-?\d"\];
-    E \[label = "E\nT-?\d R-?\d E-?\d"\];
-    F \[label = "F\nT-?\d R-?\d E-?\d"\];
-    G \[label = "G\nT-?\d R-?\d E-?\d"\];
-    H \[label = "H\nT-?\d R-?\d E-?\d"\];
-    I \[label = "I\nT-?\d R-?\d E-?\d"\];
-    J \[label = "J\nT-?\d R-?\d E-?\d"\];
+    A \[label = "A
+  T-?\d R-?\d E-?\d"\];
+    B \[label = "B
+  T-?\d R-?\d E-?\d"\];
+    C \[label = "C
+  T-?\d R-?\d E-?\d"\];
+    D \[label = "D
+  T-?\d R-?\d E-?\d"\];
+    E \[label = "E
+  T-?\d R-?\d E-?\d"\];
+    F \[label = "F
+  T-?\d R-?\d E-?\d"\];
+    G \[label = "G
+  T-?\d R-?\d E-?\d"\];
+    H \[label = "H
+  T-?\d R-?\d E-?\d"\];
+    I \[label = "I
+  T-?\d R-?\d E-?\d"\];
+    J \[label = "J
+  T-?\d R-?\d E-?\d"\];
     A -- B
     B -- C
     C -- D
