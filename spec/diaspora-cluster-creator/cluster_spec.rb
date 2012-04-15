@@ -30,7 +30,7 @@ describe Cluster do
       expected_output = ['output']
       maker = MiniTest::Mock.new
       maker.expect(:call, expected_output)
-      subject.node_maker = maker
+      subject.node_collection_builder = maker
       subject.nodes.must_equal(expected_output)
       maker.verify
     end

@@ -11,7 +11,7 @@ module Diaspora
         def_injector(:node_builder) { Node.public_method(:new) }
         def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
         def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
-        def_injector(:node_maker) { lambda { node_guarantor.call(generate_first_pass) } }
+        def_injector(:node_collection_builder) { lambda { node_guarantor.call(generate_first_pass) } }
         def_injector(:dice) { FateDice.new }
 
         attr_reader :names
@@ -28,7 +28,7 @@ module Diaspora
         end
 
         def nodes
-          @nodes ||= node_maker.call
+          @nodes ||= node_collection_builder.call
         end
 
         def edges
