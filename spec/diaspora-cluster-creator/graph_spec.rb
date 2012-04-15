@@ -11,24 +11,4 @@ describe Graph do
     end
   end
 
-  describe '#edges' do
-    it 'connection for all -1 rolls' do
-      expected = Set.new
-      expected << [1,2]
-      expected << [2,3]
-      with_loaded_dice(-1, subject) do
-        subject.edges.must_equal expected
-      end
-    end
-
-    it 'connection for all -2 rolls' do
-      expected = Set.new
-      expected << [1,2]
-      expected << [1,3]
-      expected << [2,3]
-      with_loaded_dice(0, subject) do
-        subject.edges.must_equal expected
-      end
-    end
-  end
 end

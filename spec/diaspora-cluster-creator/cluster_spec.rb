@@ -24,4 +24,16 @@ describe Cluster do
       @yielded.must_equal [transformed_object]
     end
   end
+  
+  describe '#edges' do
+    it 'should delegate edge drawing to the edge_drawer' do
+      expected_output = ['output']
+      drawer = MiniTest::Mock.new
+      drawer.expect(:call, expected_output, [subject])
+      subject.edge_drawer = drawer
+      subject.edges.must_equal(expected_output)
+      drawer.verify
+    end
+  end
+  
 end
