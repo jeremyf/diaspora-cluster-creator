@@ -5,7 +5,7 @@ require_relative 'fate_dice'
 module Diaspora
   module Cluster
     module Creator
-      class Attribute
+      class NodeAttribute
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         

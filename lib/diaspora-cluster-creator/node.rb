@@ -1,7 +1,7 @@
 require 'dependency_injector'
 require 'set'
 require_relative 'fate_dice'
-require_relative 'attribute'
+require_relative 'node_attribute'
 
 module Diaspora
   module Cluster
@@ -26,7 +26,7 @@ module Diaspora
 
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
-        def_injector(:attribute_builder) { Attribute.public_method(:new) }
+        def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
 
         attr_reader :context, :name
         def initialize(context, name_with_attribute_values)

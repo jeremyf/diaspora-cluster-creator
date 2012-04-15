@@ -26,7 +26,7 @@ module Diaspora
         def nodes
           @nodes ||= build_nodes
         end
-        
+
         def to_s
           'Cluster'
         end

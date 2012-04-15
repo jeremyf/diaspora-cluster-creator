@@ -1,8 +1,8 @@
 require_relative '../spec_helper_lite'
-require 'attribute'
+require 'node_attribute'
 
-describe Attribute do
-  subject { Attribute.new(name) }
+describe NodeAttribute do
+  subject { NodeAttribute.new(name) }
   let(:name) { 'shoe-size' }
 
   describe '#name' do
