@@ -10,6 +10,7 @@ module Diaspora
         extend DependencyInjector
         def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
+        def_injector(:attribute_collection_builder) { lambda { [] } }
 
         attr_reader :names
         attr_reader :attribute_names
@@ -34,6 +35,10 @@ module Diaspora
 
         def edges
           @edges ||= edge_drawer.call
+        end
+        
+        def attributes
+          @attributes ||= attribute_collection_builder.call
         end
 
         def to_s
