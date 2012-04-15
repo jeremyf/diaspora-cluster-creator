@@ -14,7 +14,7 @@ module Diaspora
         extend DependencyInjector
         def_injector(:node_builder) { Node.public_method(:new) }
         def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
-        def_injector(:edge_drawer) { Edge.public_method(:draw) }
+        def_injector(:edge_drawer) { lambda {|obj| connect_nodes } }
         def_injector(:dice) { FateDice.new }
 
         attr_reader :names
@@ -58,14 +58,15 @@ module Diaspora
               connect(node, @nodes[i+1], @nodes[i+2], @nodes[i+3])
             end
           end
+          @edges
         end
 
         def connect(node, *others)
-          @edges ||= Set.new
-
+          @edges ||= []
           others.flatten.compact.each do |other|
             @edges << [node,other] 
           end
+          @edges
         end
       end
     end

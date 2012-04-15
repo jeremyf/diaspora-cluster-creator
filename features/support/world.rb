@@ -22,10 +22,6 @@ module KnowsTheDomain
   def set_current_node(value)
     @current_node = Node.new(current_cluster, value)
   end
-  
-  def current_graph
-    @current_graph ||= Graph.new(current_cluster)
-  end
 end
 
 World(KnowsTheDomain)

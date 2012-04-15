@@ -3,9 +3,9 @@ When /^I request a new cluster with (#{CAPTURE_INTEGER}) node systems?$/ do |cou
 end
 
 Then /^the output should have (#{CAPTURE_INTEGER}) nodes$/ do |count|
-  current_graph.nodes.count.must_equal count
+  current_cluster.nodes.count.must_equal count
 end
 
 Then /^the output should have at least (#{CAPTURE_INTEGER}) edges$/ do |count|
-  current_graph.edges.count.must_be :>=, count
+  current_cluster.edges.count.must_be :>=, count
 end

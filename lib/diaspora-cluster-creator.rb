@@ -7,8 +7,7 @@ module Diaspora
         filename = params[:filename].to_s
         names = ('A'..'Z').to_a[0,params[:count] || 6]
         cluster = Cluster.new( Settings.new, params[:names] || names )
-        graph = Graph.new(cluster)
-        template = Template.new(graph)
+        template = Template.new(cluster)
         case File.extname(filename)
         when '.dot' then template.to_dot(params[:filename])
         when '.png' then template.to_png(params[:filename])
@@ -22,7 +21,6 @@ module Diaspora
 end
 
 require_relative "diaspora-cluster-creator/fate_dice"
-require_relative "diaspora-cluster-creator/graph"
 require_relative "diaspora-cluster-creator/cluster"
 require_relative "diaspora-cluster-creator/node"
 require_relative "diaspora-cluster-creator/template"
