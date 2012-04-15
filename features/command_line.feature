@@ -27,6 +27,22 @@ Scenario: Specify with names
   }
   """
 
+Scenario: Specify with technology guarantee
+  When I run `diaspora-cluster names="Sparta{T0 E-1 R0},Athens{T1 E1 R0},Corinth{T1 E0 R0}"`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    Sparta \[label = "Sparta
+  T2 R0 E-1"\];
+    Athens \[label = "Athens
+  T2 R0 E1"\];
+    Corinth \[label = "Corinth
+  T1 R0 E0"\];
+    Sparta -- Athens
+    Athens -- Corinth
+  }
+  """
+
 Scenario: With -h
   When I run `diaspora-cluster -h`
   Then it should fail with output like:
