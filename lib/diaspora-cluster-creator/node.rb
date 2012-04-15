@@ -28,9 +28,9 @@ module Diaspora
         def_injector(:dice) { FateDice.new }
         def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
 
-        attr_reader :context, :name
-        def initialize(context, name_with_attribute_values)
-          @context = context
+        attr_reader :cluster, :name
+        def initialize(cluster, name_with_attribute_values)
+          @cluster = cluster
           set_name_and_attribute_values(name_with_attribute_values.to_s)
         end
 

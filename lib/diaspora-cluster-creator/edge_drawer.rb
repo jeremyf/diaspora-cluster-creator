@@ -4,9 +4,9 @@ module Diaspora
       class EdgeDrawer
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
-        attr_reader :collection
-        def initialize(collection)
-          @collection = collection
+        attr_reader :cluster
+        def initialize(cluster)
+          @cluster = cluster
         end
         
         def draw(nodes)

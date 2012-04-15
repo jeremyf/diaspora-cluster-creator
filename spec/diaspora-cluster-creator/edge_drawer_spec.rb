@@ -19,4 +19,3 @@ describe EdgeDrawer do
     end
   end
 end
-
