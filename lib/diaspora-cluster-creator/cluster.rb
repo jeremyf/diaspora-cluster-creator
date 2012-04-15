@@ -1,6 +1,7 @@
 require 'dependency_injector'
-require_relative 'node'
-require_relative 'guarantor'
+require_relative 'node_collection_factory'
+require_relative 'fate_dice'
+require_relative 'edge_drawer'
 
 module Diaspora
   module Cluster
@@ -10,7 +11,6 @@ module Diaspora
         extend DependencyInjector
         def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
-        def_injector(:dice) { FateDice.new }
 
         attr_reader :names
         attr_reader :settings
@@ -21,9 +21,9 @@ module Diaspora
         end
 
         def each
-          nodes.each {|ss| yield(ss)}
+          nodes.each { |node| yield(node) }
         end
-
+        
         def nodes
           @nodes ||= node_collection_builder.call
         end
@@ -34,11 +34,6 @@ module Diaspora
 
         def to_s
           'Cluster'
-        end
-
-        protected
-        def generate_first_pass
-          names.each_with_object([]) {|name,mem| mem << node_builder.call(self, name)}
         end
       end
     end
