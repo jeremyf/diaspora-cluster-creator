@@ -5,16 +5,12 @@ require_relative 'guarantor'
 module Diaspora
   module Cluster
     module Creator
-      class Edge
-        def self.draw(enumerable)
-        end
-      end
       class Cluster
         include Enumerable
         extend DependencyInjector
         def_injector(:node_builder) { Node.public_method(:new) }
         def_injector(:node_guarantor) { Guarantor.new(:technology, 2).public_method(:guarantee!) }
-        def_injector(:edge_drawer) { lambda {|obj| connect_nodes } }
+        def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:dice) { FateDice.new }
 
         attr_reader :names
@@ -33,11 +29,11 @@ module Diaspora
         def nodes
           @nodes ||= node_guarantor.call(generate_first_pass)
         end
-        
+
         def edges
-          @edges ||= edge_drawer.call(self)
+          @edges ||= edge_drawer.call
         end
-        
+
         def to_s
           'Cluster'
         end
@@ -45,28 +41,6 @@ module Diaspora
         protected
         def generate_first_pass
           names.each_with_object([]) {|name,mem| mem << node_builder.call(self, name)}
-        end
-        
-        def connect_nodes
-          nodes.each_with_index do |node, i|
-            result = dice.roll
-            if result < 0
-              connect(node, @nodes[i+1])
-            elsif result == 0
-              connect(node, @nodes[i+1], @nodes[i+2])
-            elsif result > 0
-              connect(node, @nodes[i+1], @nodes[i+2], @nodes[i+3])
-            end
-          end
-          @edges
-        end
-
-        def connect(node, *others)
-          @edges ||= []
-          others.flatten.compact.each do |other|
-            @edges << [node,other] 
-          end
-          @edges
         end
       end
     end

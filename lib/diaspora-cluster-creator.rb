@@ -23,6 +23,7 @@ end
 require_relative "diaspora-cluster-creator/fate_dice"
 require_relative "diaspora-cluster-creator/cluster"
 require_relative "diaspora-cluster-creator/node"
+require_relative "diaspora-cluster-creator/edge_drawer"
 require_relative "diaspora-cluster-creator/template"
 require_relative "diaspora-cluster-creator/node_attribute"
 require_relative "diaspora-cluster-creator/settings"

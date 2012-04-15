@@ -29,11 +29,10 @@ describe Cluster do
     it 'should delegate edge drawing to the edge_drawer' do
       expected_output = ['output']
       drawer = MiniTest::Mock.new
-      drawer.expect(:call, expected_output, [subject])
+      drawer.expect(:call, expected_output)
       subject.edge_drawer = drawer
       subject.edges.must_equal(expected_output)
       drawer.verify
     end
   end
-  
 end
