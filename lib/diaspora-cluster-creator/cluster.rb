@@ -8,7 +8,7 @@ module Diaspora
     module Creator
       class Cluster
         extend DependencyInjector
-        def_injector(:edge_drawer) { lambda { EdgeDrawer.new(self).draw(nodes) } }
+        def_injector(:edge_collection_builder) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
         def_injector(:attribute_collection_builder) { lambda { [] } }
 
@@ -34,7 +34,7 @@ module Diaspora
         end
 
         def edges
-          @edges ||= edge_drawer.call
+          @edges ||= edge_collection_builder.call
         end
         
         def attributes

@@ -21,7 +21,7 @@ describe Cluster do
   describe '#each_edge' do
     it 'should yield the edges' do
       expected_output = [1,2,3]
-      subject.edge_drawer = lambda { expected_output }
+      subject.edge_collection_builder = lambda { expected_output }
       @yielded = []
       subject.each_edge do |edge|
         @yielded << edge
@@ -42,11 +42,11 @@ describe Cluster do
   end
   
   describe '#edges' do
-    it 'should delegate edge drawing to the edge_drawer' do
+    it 'should delegate edge drawing to the edge_collection_builder' do
       expected_output = ['output']
       drawer = MiniTest::Mock.new
       drawer.expect(:call, expected_output)
-      subject.edge_drawer = drawer
+      subject.edge_collection_builder = drawer
       subject.edges.must_equal(expected_output)
       drawer.verify
     end
