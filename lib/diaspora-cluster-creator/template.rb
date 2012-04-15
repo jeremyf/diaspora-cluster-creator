@@ -26,15 +26,17 @@ module Diaspora
           template = GraphViz.new(cluster.to_s, :type => :graph )
           nodes = {}
           cluster.each_node do |node|
-            nodes[node] = template.add_nodes(node.to_s, :label => (node.respond_to?(:label) ? node.label : node.to_s))
+            options = {}
+            options[:label] = (node.respond_to?(:label) ? node.label : node.to_s)
+            nodes[node] = template.add_nodes(node.to_s, options)
           end
-          
+
           cluster.each_edge do |edge|
             to = edge[0]
             from = edge[1]
             template.add_edges(to.to_s, from.to_s)
           end
-          
+
           template
         end
       end
