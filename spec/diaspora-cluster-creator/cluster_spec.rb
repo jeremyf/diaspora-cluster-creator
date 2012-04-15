@@ -25,6 +25,17 @@ describe Cluster do
     end
   end
   
+  describe '#nodes' do
+    it 'should delegate node creation to node_maker' do
+      expected_output = ['output']
+      maker = MiniTest::Mock.new
+      maker.expect(:call, expected_output)
+      subject.node_maker = maker
+      subject.nodes.must_equal(expected_output)
+      maker.verify
+    end
+  end
+  
   describe '#edges' do
     it 'should delegate edge drawing to the edge_drawer' do
       expected_output = ['output']
