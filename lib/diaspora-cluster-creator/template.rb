@@ -26,6 +26,9 @@ module Diaspora
         def canvas
           return @canvas if @canvas
           @canvas = GraphViz.new(cluster.to_s, :type => :graph )
+          
+          attribute_legend = cluster.attributes.collect{|att| "#{att.prefix} - #{att.to_s}" }.join("\n")
+          @canvas.add_nodes('Cluster Legend', :label => attribute_legend, :shape => 'box')
 
           cluster.each_node do |node|
             options = {}
