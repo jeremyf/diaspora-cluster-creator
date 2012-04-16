@@ -6,6 +6,14 @@ describe NodeAttribute do
   let(:node) { Object.new }
   let(:attribute) { Object.new }
 
+  describe '#to_s' do
+    it 'should incorporate attribute' do
+      with_loaded_dice(-4, subject) do
+        subject.to_s.must_equal "#{attribute}-4"
+      end
+    end
+  end
+
   describe '#to_i' do
     it 'should be the value' do
       with_loaded_dice(4, subject) do

@@ -27,6 +27,10 @@ module Diaspora
         def to_i
           value
         end
+        
+        def to_s
+          "#{super}#{to_i}"
+        end
       end
     end
   end
