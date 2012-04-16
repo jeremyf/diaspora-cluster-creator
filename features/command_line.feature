@@ -19,6 +19,9 @@ Scenario: Specify with names
   Then it should pass with:
   """
   graph Cluster {
+    "Cluster Legend" [label = "T - Technology
+  R - Resources
+  E - Environment", shape = "box"];
     Sparta [label = "Sparta
   T2 R0 E-1"];
     Athens [label = "Athens
@@ -32,6 +35,9 @@ Scenario: Specify with technology guarantee
   Then it should pass with output like:
   """
   graph Cluster {
+    "Cluster Legend" [label = "T - Technology
+  R - Resources
+  E - Environment", shape = "box"];
     Sparta \[label = "Sparta
   T2 R0 E-1"\];
     Athens \[label = "Athens
