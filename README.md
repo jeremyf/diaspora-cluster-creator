@@ -38,6 +38,8 @@ Or you can specify names
 Or perhaps you prefer a PNG
 
 	$ diaspora-cluster filename=output.png names="Sparta [T2 E1 R3], Athens [T-2], Corinth [R3 T2 E1], Ephesus, Rhodes [T4]"
+	
+Take a look at /features/command_line.feature for better definitions.
 
 ## Contributing
 
