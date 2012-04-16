@@ -6,6 +6,14 @@ describe NodeAttribute do
   let(:node) { Object.new }
   let(:attribute) { Object.new }
 
+  describe '#to_i' do
+    it 'should be the value' do
+      with_loaded_dice(4, subject) do
+        subject.to_i.must_equal 4
+      end
+    end
+  end
+
   describe '#value' do
     it 'should be the result of a roll' do
       with_loaded_dice(4, subject) do

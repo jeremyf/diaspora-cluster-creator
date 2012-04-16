@@ -23,6 +23,10 @@ module Diaspora
         def value=(new_value)
           @value = new_value.to_i
         end
+        
+        def to_i
+          value
+        end
       end
     end
   end
