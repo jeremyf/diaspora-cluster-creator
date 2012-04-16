@@ -3,9 +3,13 @@ module Diaspora
     module Creator
       class Attribute
         attr_reader :name, :prefix
-        def initialize(name, prefix = nil)
-          @name = name
-          @prefix = (prefix || @name).slice(0).upcase
+        def initialize(name)
+          if /\((?<extracted_prefix>\w)\)/ =~ name
+            @prefix = extracted_prefix.upcase
+          else
+            @prefix = name.slice(0).upcase
+          end
+          @name = name.gsub(/[\(\)]/,'')
         end
         
         def to_s

@@ -10,10 +10,9 @@ module Diaspora
         extend DependencyInjector
         def_injector(:edge_collection_builder) { lambda { EdgeDrawer.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
-        def_injector(:attribute_collection_builder) { lambda { [] } }
+        def_injector(:attribute_collection_builder) { lambda { AttributeCollectionFactory.new(self).build_from(attribute_names) } }
 
         attr_reader :names
-        attr_reader :attribute_names
         attr_reader :settings
 
         def initialize(names = [], attribute_names = [])
