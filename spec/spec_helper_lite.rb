@@ -2,8 +2,10 @@ gem 'minitest' # demand gem version
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'ostruct'
+require 'factory_girl'
 $: << File.expand_path('../lib/diaspora-cluster-creator', File.dirname(__FILE__))
 require 'diaspora-cluster-creator'
+require_relative 'factories'
 
 # Cheating a bit to help tests be a bit more readable
 include Diaspora::Cluster::Creator

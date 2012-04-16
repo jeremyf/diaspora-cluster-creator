@@ -3,14 +3,6 @@ require 'node'
 require 'ostruct'
 
 describe Node do
-  class MockAttribute
-    attr_accessor :value, :to_sym, :prefix
-    def to_i; value; end
-    def value
-      @value.to_i
-    end
-  end
-    
   let(:attribute_builder) { lambda {|node,attribute| attribute } }
   let(:name) { 'Name' }
   subject {
@@ -22,9 +14,9 @@ describe Node do
     Object.new.tap do |obj|
       def obj.attributes
         [
-          MockAttribute.new.tap{|obj| obj.to_sym = :technology; obj.prefix = 'T'; obj.value = 1},
-          MockAttribute.new.tap{|obj| obj.to_sym = :resources; obj.prefix = 'R'; obj.value = 1},
-          MockAttribute.new.tap{|obj| obj.to_sym = :environment; obj.prefix = 'E'; obj.value = 1},
+          FactoryGirl.build(:attribute, :to_sym => :technology, :value => 1, :prefix => 'T'),
+          FactoryGirl.build(:attribute, :to_sym => :resources, :value => 1, :prefix => 'R'),
+          FactoryGirl.build(:attribute, :to_sym => :environment, :value => 1, :prefix => 'E'),
         ]
       end
     end
@@ -34,9 +26,9 @@ describe Node do
       Object.new.tap do |obj|
         def obj.attributes
           [
-            MockAttribute.new.tap{|obj| obj.to_sym = :knights; obj.prefix = 'K'; obj.value = 1},
-            MockAttribute.new.tap{|obj| obj.to_sym = :dragons; obj.prefix = 'D'; obj.value = 2},
-            MockAttribute.new.tap{|obj| obj.to_sym = :maidens; obj.prefix = 'M'; obj.value = 3},
+            FactoryGirl.build(:attribute, :to_sym => :knights, :prefix => 'K', :value => 1),
+            FactoryGirl.build(:attribute, :to_sym => :dragons, :prefix => 'D', :value => 2),
+            FactoryGirl.build(:attribute, :to_sym => :maidens, :prefix => 'M', :value => 3),
           ]
         end
       end
