@@ -2,11 +2,37 @@ require 'graphviz'
 module Diaspora
   module Cluster
     module Creator
+      module Conversions
+        module Legend
+          def to_legend
+            if respond_to?(:prefix)
+              "#{prefix} - #{to_s}"
+            else
+              to_s
+            end
+          end
+        end
+        private
+        def Legendary(item)
+          return item if item.kind_of?(Legend)
+          if item.is_a?(Array)
+            item.each {|i| i.extend(Legend) }
+            def item.to_legend
+              collect(&:to_legend).join("\n")
+            end
+          else
+            item.extend(Legend)
+          end
+          item
+        end
+      end
       class Template
+        include Conversions
         attr_reader :cluster
         def initialize(cluster)
           raise RuntimeError unless cluster.respond_to?(:each_node)
           raise RuntimeError unless cluster.respond_to?(:each_edge)
+          raise RuntimeError unless cluster.respond_to?(:attributes)
           @cluster = cluster
         end
         
@@ -27,8 +53,7 @@ module Diaspora
           return @canvas if @canvas
           @canvas = GraphViz.new(cluster.to_s, :type => :graph )
           
-          attribute_legend = cluster.attributes.collect{|att| "#{att.prefix} - #{att.to_s}" }.join("\n")
-          @canvas.add_nodes('Cluster Legend', :label => attribute_legend, :shape => 'box')
+          @canvas.add_nodes('Cluster Legend', :label => Legendary(cluster.attributes).to_legend, :shape => 'box')
 
           cluster.each_node do |node|
             options = {}

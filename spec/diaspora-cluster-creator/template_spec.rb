@@ -40,4 +40,21 @@ describe Template do
       )
     end
   end
+  
+  describe 'Conversions' do
+    describe 'Legendary' do
+      it 'should append to_legend method' do
+        object = FactoryGirl.build(:attribute, :to_s => 'Shoe', :prefix => 'S')
+        self.extend(Conversions)
+        Legendary(object).to_legend.must_equal('S - Shoe')
+      end
+
+      it 'should append to_legend method' do
+        object1 = FactoryGirl.build(:attribute, :to_s => 'Shoe', :prefix => 'S')
+        object2 = FactoryGirl.build(:attribute, :to_s => 'Hair', :prefix => 'H')
+        self.extend(Conversions)
+        Legendary([object1,object2]).to_legend.must_equal("S - Shoe\nH - Hair")
+      end
+    end
+  end
 end
