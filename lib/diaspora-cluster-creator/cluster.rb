@@ -1,6 +1,6 @@
 require 'dependency_injector'
 require_relative 'node_collection_factory'
-require_relative 'fate_dice'
+require_relative 'attribute_collection_factory'
 require_relative 'edge_drawer'
 
 module Diaspora
