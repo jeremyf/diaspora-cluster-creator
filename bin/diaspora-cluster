@@ -5,23 +5,28 @@ require_relative '../lib/diaspora-cluster-creator'
 
 Main do
   description 'Generate a diaspora cluster'
-  keyword('names', 'n') {
+  keyword('names') {
     arity(-1)
     cast :list_of_string
     description "List of cluster names, comma separated."
   }
-  keyword('count', 'c') {
+  keyword('count') {
     arity 1
     cast :integer
     description "Instead of a list of names, provide a cluster count."
   }
-  keyword('filename', 'f') {
+  keyword('filename') {
     arity 1
     validate {|output| output =~ /\w\.(png|svg|dot)$/i}
     description ".png, .svg, .dot formats"
   }
+  keyword('attributes') {
+    arity(-1)
+    cast :list_of_string
+    description "Instead of the default attributes, specify a different set"
+  }
   def run
-    options = {:names => params[:names].value, :count => params[:count].value, :filename => params[:filename].value}
+    options = {:names => params[:names].value, :count => params[:count].value, :filename => params[:filename].value, :attributes => params[:attributes].value}
     Diaspora::Cluster::Creator.run(options)
   end
 end
