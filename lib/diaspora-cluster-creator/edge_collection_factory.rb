@@ -1,7 +1,7 @@
 module Diaspora
   module Cluster
     module Creator
-      class EdgeDrawer
+      class EdgeCollectionFactory
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         attr_reader :cluster

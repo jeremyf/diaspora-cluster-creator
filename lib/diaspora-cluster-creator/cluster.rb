@@ -1,14 +1,14 @@
 require 'dependency_injector'
 require_relative 'node_collection_factory'
 require_relative 'attribute_collection_factory'
-require_relative 'edge_drawer'
+require_relative 'edge_collection_factory'
 
 module Diaspora
   module Cluster
     module Creator
       class Cluster
         extend DependencyInjector
-        def_injector(:edge_collection_builder) { lambda { EdgeDrawer.new(self).draw(nodes) } }
+        def_injector(:edge_collection_builder) { lambda { EdgeCollectionFactory.new(self).draw(nodes) } }
         def_injector(:node_collection_builder) { lambda { NodeCollectionFactory.new(self).build_from(names) } }
         def_injector(:attribute_collection_builder) { lambda { AttributeCollectionFactory.new(self).build_from(attribute_names) } }
 

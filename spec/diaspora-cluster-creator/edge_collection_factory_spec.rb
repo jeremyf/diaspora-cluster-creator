@@ -1,8 +1,8 @@
 require_relative '../spec_helper_lite'
-require 'edge_drawer'
+require 'edge_collection_factory'
 
-describe EdgeDrawer do
-  subject { EdgeDrawer.new(context)}
+describe EdgeCollectionFactory do
+  subject { EdgeCollectionFactory.new(context)}
   let(:context) { Object.new }
   
   describe '#draw' do

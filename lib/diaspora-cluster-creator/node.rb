@@ -3,6 +3,9 @@ require 'set'
 require_relative 'fate_dice'
 require_relative 'node_attribute'
 
+# TODO: Need to write NodeAttribute collection class; the frequent
+# use of attributes.detect smells bad.
+
 module Diaspora
   module Cluster
     module Creator
