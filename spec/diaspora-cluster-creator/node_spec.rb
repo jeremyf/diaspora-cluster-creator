@@ -1,11 +1,41 @@
 require_relative '../spec_helper_lite'
 require 'node'
+require 'ostruct'
 
 describe Node do
-  subject { Node.new( Object.new, 1 ) }
+  subject { Node.new( cluster, 'Name' ) { |node|
+    node.attributes_builder = attributes_builder
+  } }
+  let(:attributes_builder) {
+    lambda {|node,attribute| [node,attribute]}
+  }
+  let(:cluster) {
+    Object.new.tap do |obj|
+      def obj.attributes
+        [
+          OpenStruct.new(:to_sym => :technology, :prefix => 'T'),
+          OpenStruct.new(:to_sym => :resources, :prefix => 'R'),
+          OpenStruct.new(:to_sym => :environment, :prefix => 'E'),
+        ]
+      end
+    end
+  }
+  describe 'with attributes' do
+    let(:cluster) {
+      Object.new.tap do |obj|
+        def obj.attributes
+          [
+            OpenStruct.new(:to_sym => :knights, :prefix => 'K'),
+            OpenStruct.new(:to_sym => :dragons, :prefix => 'D'),
+            OpenStruct.new(:to_sym => :maidens, :prefix => 'M'),
+          ]
+        end
+      end
+    }
+  end
 
   describe '#initialize with some attributes' do
-    subject { Node.new(Object.new, "Sparta{T1 E-4}") }
+    subject { Node.new(cluster, "Sparta{T1 E-4}") }
     it 'should have an extracted name' do
       subject.name.must_equal 'Sparta'
     end
@@ -51,8 +81,8 @@ describe Node do
 
   describe '#<=>' do
     it 'should be comparable to another node node' do
-      @node_a = Node.new('', 1)
-      @node_b = Node.new('', 2)
+      @node_a = Node.new(cluster, 1)
+      @node_b = Node.new(cluster, 2)
       with_loaded_dice(2, @node_a) do
         with_loaded_dice(1, @node_b) do
           @node_b.must_be :<, @node_a

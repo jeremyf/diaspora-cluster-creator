@@ -2,21 +2,10 @@ require_relative '../spec_helper_lite'
 require 'node_attribute'
 
 describe NodeAttribute do
-  subject { NodeAttribute.new(name) }
-  let(:name) { 'shoe-size' }
+  subject { NodeAttribute.new(node, attribute) }
+  let(:node) { Object.new }
+  let(:attribute) { Object.new }
 
-  describe '#name' do
-    it 'should be initially assigned' do
-      subject.name.must_equal name
-    end
-  end
-
-  describe '#prefix' do
-    it 'should be derived from the name' do
-      subject.prefix.must_equal 'S'
-    end
-  end
-  
   describe '#value' do
     it 'should be the result of a roll' do
       with_loaded_dice(4, subject) do

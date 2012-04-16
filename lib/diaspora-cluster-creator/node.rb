@@ -16,7 +16,7 @@ module Diaspora
         def self.rolled_attribute(attribute_name, abbreviation = nil)
           rolled_attributes << attribute_name.to_s
           define_method(attribute_name) do
-            instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", attribute_builder.call(attribute_name).value = dice.roll )
+            instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", attribute_builder.call(self, '').value = dice.roll )
             instance_variable_get("@#{attribute_name}")
           end
           define_method("#{attribute_name}=") do |value|
@@ -27,13 +27,19 @@ module Diaspora
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
+        def_injector(:attributes_builder) { lambda {|obj,attribute| [obj,attribute]}}
 
         attr_reader :cluster, :name
         def initialize(cluster, name_with_attribute_values)
           @cluster = cluster
+          @attributes = []
+          cluster.attributes.each do |attribute|
+            @attributes << attributes_builder.call(self,attribute)
+          end
+          yield(self) if block_given?
           set_name_and_attribute_values(name_with_attribute_values.to_s)
         end
-
+        
         rolled_attribute :technology, :t
         rolled_attribute :resources, :r
         rolled_attribute :environment, :e

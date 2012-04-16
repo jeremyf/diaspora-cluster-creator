@@ -1,21 +1,19 @@
+require 'delegate'
 require 'dependency_injector'
-require 'set'
 require_relative 'fate_dice'
+require_relative 'attribute'
 
 module Diaspora
   module Cluster
     module Creator
-      class NodeAttribute
+      class NodeAttribute < DelegateClass(Attribute)
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         
-        attr_reader :name
-        def initialize(name)
-          @name = name.to_s
-        end
-        
-        def prefix
-          name.slice(0).upcase
+        attr_reader :node
+        def initialize(node, attribute)
+          @node = node
+          super(attribute)
         end
         
         def value
