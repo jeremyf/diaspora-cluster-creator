@@ -27,13 +27,13 @@ module Diaspora
           return @canvas if @canvas
           @canvas = GraphViz.new(cluster.to_s, :type => :graph )
 
-          cluster.nodes.each do |node|
+          cluster.each_node do |node|
             options = {}
             options[:label] = (node.respond_to?(:label) ? node.label : node.to_s)
             @canvas.add_nodes(node.to_s, options)
           end
 
-          cluster.edges.each do |edge|
+          cluster.each_edge do |edge|
             to = edge[0]
             from = edge[1]
             @canvas.add_edges(to.to_s, from.to_s)
