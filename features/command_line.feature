@@ -74,6 +74,50 @@ Scenario Outline: I want files of different formats
   | dot    |
   | svg    |
 
+@wip
+Scenario: Specify different attributes
+  When I run `diaspora-cluster attributes="Magic, Religion, Science"`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    A \[label = "A
+  M-?\d R-?\d S-?\d"\];
+    B \[label = "B
+  M-?\d R-?\d S-?\d"\];
+    C \[label = "C\
+  M-?\d R-?\d S-?\d"\];
+    D \[label = "D
+  M-?\d R-?\d S-?\d"\];
+    E \[label = "E
+  M-?\d R-?\d S-?\d"\];
+    A -- B
+    B -- C
+    C -- D
+    D -- E
+  """
+
+@wip
+Scenario: Specify different attributes
+  When I run `diaspora-cluster attributes="M(a)gic, Religion, Science"`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    A \[label = "A
+  A-?\d R-?\d S-?\d"\];
+    B \[label = "B
+  A-?\d R-?\d S-?\d"\];
+    C \[label = "C\
+  A-?\d R-?\d S-?\d"\];
+    D \[label = "D
+  A-?\d R-?\d S-?\d"\];
+    E \[label = "E
+  A-?\d R-?\d S-?\d"\];
+    A -- B
+    B -- C
+    C -- D
+    D -- E
+  """
+
 Scenario: Specify with count parameters
   When I run `diaspora-cluster count=10`
   Then it should pass with output like:
