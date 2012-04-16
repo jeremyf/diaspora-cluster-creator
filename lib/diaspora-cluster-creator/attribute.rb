@@ -19,6 +19,10 @@ module Diaspora
         def to_sym
           name.to_s.gsub(/\W+/,'_').downcase.to_sym
         end
+        
+        def label
+          prefix
+        end
       end
     end
   end

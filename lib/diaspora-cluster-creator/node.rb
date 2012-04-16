@@ -7,50 +7,38 @@ module Diaspora
   module Cluster
     module Creator
       class Node
-        def self.rolled_attributes
-          unless defined?(@@rolled_attributes)
-            @@rolled_attributes = Set.new
-          end
-          @@rolled_attributes
-        end
-        def self.rolled_attribute(attribute_name, abbreviation = nil)
-          rolled_attributes << attribute_name.to_s
-          define_method(attribute_name) do
-            instance_variable_get("@#{attribute_name}") || instance_variable_set("@#{attribute_name}", attribute_builder.call(self, '').value = dice.roll )
-            instance_variable_get("@#{attribute_name}")
-          end
-          define_method("#{attribute_name}=") do |value|
-            instance_variable_set("@#{attribute_name}", value.to_i)
-          end
-        end
-
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
-        def_injector(:attributes_builder) { lambda {|obj,attribute| [obj,attribute]}}
 
-        attr_reader :cluster, :name
+        attr_reader :cluster, :name, :attributes
         def initialize(cluster, name_with_attribute_values)
           @cluster = cluster
           @attributes = []
-          cluster.attributes.each do |attribute|
-            @attributes << attributes_builder.call(self,attribute)
-          end
           yield(self) if block_given?
+          cluster.attributes.each do |attribute|
+            @attributes << attribute_builder.call(self,attribute)
+          end
           set_name_and_attribute_values(name_with_attribute_values.to_s)
         end
         
-        rolled_attribute :technology, :t
-        rolled_attribute :resources, :r
-        rolled_attribute :environment, :e
-
+        def method_missing(method_name, *args, &block)
+          if attributes && attribute = attributes.detect {|a| a.to_sym == method_name.to_sym }
+            attribute.value
+          elsif attributes && attribute = attributes.detect {|a| "#{a.to_sym}=".to_sym == method_name.to_sym }
+            attribute.value = args.first
+          else
+            super
+          end
+        end
+        
         include Comparable
         def <=>(other)
           to_i <=> other.to_i
         end
 
         def to_i
-          self.class.rolled_attributes.inject(0) {|m,v| m += send(v) }
+          attributes.inject(0) {|m,v| m += v.to_i}
         end
 
         def to_s
@@ -58,21 +46,21 @@ module Diaspora
         end
 
         def label
-          "#{name}\nT#{technology} R#{resources} E#{environment}"
+          attributes.inject("#{name}\n") {|m,attrib| m << "#{attrib.label} "}.strip
         end
 
         protected
         def set_name_and_attribute_values(name_with_attribtes)
           /^(?<name>[^(?:\[|\{)]*)(?:(?:\[|\{)(?<encoded_attributes>[^(?:\]|\})]*)(?:\]|\}))?$/ =~ name_with_attribtes
           @name = name.strip
-          @attributes = extract_encoded_attributes(encoded_attributes)
+          extract_encoded_attributes(encoded_attributes)
         end
         def extract_encoded_attributes(encoded_attributes)
           if encoded_attributes
             encoded_attributes.split(/ +/).collect(&:strip).each do |option|
               /(?<attribute_prefix>\w) *(?<attribute_value>-?\d)/ =~ option
-              if attribute_name = self.class.rolled_attributes.detect {|roled_attribute| roled_attribute =~ /^#{attribute_prefix}/i}
-                send("#{attribute_name}=",attribute_value)
+              if attribute = attributes.detect {|attrib| attrib.prefix =~ /^#{attribute_prefix}$/i}
+                attribute.value = attribute_value
               end
             end
           end

@@ -74,7 +74,6 @@ Scenario Outline: I want files of different formats
   | dot    |
   | svg    |
 
-@wip
 Scenario: Specify different attributes
   When I run `diaspora-cluster attributes="Magic, Religion, Science"`
   Then it should pass with output like:
@@ -84,7 +83,7 @@ Scenario: Specify different attributes
   M-?\d R-?\d S-?\d"\];
     B \[label = "B
   M-?\d R-?\d S-?\d"\];
-    C \[label = "C\
+    C \[label = "C
   M-?\d R-?\d S-?\d"\];
     D \[label = "D
   M-?\d R-?\d S-?\d"\];
@@ -96,8 +95,7 @@ Scenario: Specify different attributes
     D -- E
   """
 
-@wip
-Scenario: Specify different attributes
+Scenario: Specify different attributes with prefix override
   When I run `diaspora-cluster attributes="M(a)gic, Religion, Science"`
   Then it should pass with output like:
   """
@@ -106,7 +104,7 @@ Scenario: Specify different attributes
   A-?\d R-?\d S-?\d"\];
     B \[label = "B
   A-?\d R-?\d S-?\d"\];
-    C \[label = "C\
+    C \[label = "C
   A-?\d R-?\d S-?\d"\];
     D \[label = "D
   A-?\d R-?\d S-?\d"\];
@@ -116,6 +114,18 @@ Scenario: Specify different attributes
     B -- C
     C -- D
     D -- E
+  """
+  
+Scenario: Specify different attributes with default
+  When I run `diaspora-cluster names="Sparta{M5},Athens{R-5}" attributes="Magic, Religion, Science"`
+  Then it should pass with output like:
+  """
+  graph Cluster {
+    Sparta \[label = "Sparta
+  M5 R-?\d S-?\d"\];
+    Athens \[label = "Athens
+  M-?\d R-5 S-?\d"\];
+    Sparta -- Athens
   """
 
 Scenario: Specify with count parameters

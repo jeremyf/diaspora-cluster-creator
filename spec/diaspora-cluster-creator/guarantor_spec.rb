@@ -17,7 +17,7 @@ describe Node do
       end
     end
   }
-  describe '#guarantee!' do
+  describe '#guarantee! with defined attribute' do
     it 'should adjust technology rating without altering the sort order' do
       @node_a = mock_node.new(-1)
       @node_b = mock_node.new(0)
@@ -40,5 +40,15 @@ describe Node do
       @node_c.shoe_size.must_equal 3
     end
   end
-  
+  describe '#guarantee! without attribute' do
+    let(:attribute_name) { 'clearly_we_are_not_doing_this' }
+    it 'should fail gracefully if method is not defined' do
+      @node_a = mock_node.new(-2)
+      @node_b = mock_node.new(0)
+      @node_c = mock_node.new(3)
+      input = [@node_b, @node_c, @node_a]
+      subject.guarantee!(input).must_equal(input) # Don't change the order
+    end
+  end
+
 end

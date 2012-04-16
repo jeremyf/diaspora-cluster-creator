@@ -31,6 +31,10 @@ module Diaspora
         def to_s
           "#{super}#{to_i}"
         end
+        
+        def label
+          "#{super}#{to_i}"
+        end
       end
     end
   end

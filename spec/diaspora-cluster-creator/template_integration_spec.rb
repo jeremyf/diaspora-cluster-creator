@@ -3,9 +3,8 @@ require 'template'
 
 describe Template do
   subject { Template.new(cluster) }
-  let(:cluster) { Cluster.new(names, attributes) }
+  let(:cluster) { Cluster.new(names) }
   let(:names) {  ["Hello", "World", "Foo", "Bar"] }
-  let(:attributes) { ["M(a)gic","M(u)rder","M(y)setry"] }
   describe '#to_s' do
     it 'should remder node systems and their connections' do
       subject.to_s.tap do |dot|

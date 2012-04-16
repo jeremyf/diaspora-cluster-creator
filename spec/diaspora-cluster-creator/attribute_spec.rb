@@ -27,6 +27,12 @@ describe Attribute do
         subject.prefix.must_equal 'H'
       end
     end
+
+    describe '#label' do
+      it 'should be the prefix' do
+        subject.label.must_equal(subject.prefix)
+      end
+    end
   end
 
   describe 'with extracted prefix' do
@@ -52,6 +58,11 @@ describe Attribute do
     describe '#prefix' do
       it 'should be extracted' do
         subject.prefix.must_equal 'A'
+      end
+    end
+    describe '#label' do
+      it 'should be the prefix' do
+        subject.label.must_equal(subject.prefix)
       end
     end
   end

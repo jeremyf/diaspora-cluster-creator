@@ -12,6 +12,8 @@ module Diaspora
           working.first.send("#{attribute_name}=", minimum_value)
           working.last.send("#{attribute_name}=", minimum_value)
           nodes
+        rescue NoMethodError => e
+          nodes
         end
       end
     end
