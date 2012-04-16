@@ -9,7 +9,7 @@ module Diaspora
           @cluster = cluster
         end
         
-        def draw(nodes)
+        def build_from(nodes)
           return @edges if @edges
           nodes.each_with_index do |node, i|
             result = dice.roll

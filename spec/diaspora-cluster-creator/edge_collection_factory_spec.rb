@@ -5,11 +5,11 @@ describe EdgeCollectionFactory do
   subject { EdgeCollectionFactory.new(context)}
   let(:context) { Object.new }
   
-  describe '#draw' do
+  describe '#build_from' do
     it 'should return' do
       nodes = ['a','b','c']
       with_loaded_dice(0,subject) do
-        output = subject.draw(nodes)
+        output = subject.build_from(nodes)
         
         output.must_include ['a','b']
         output.must_include ['a','c']
