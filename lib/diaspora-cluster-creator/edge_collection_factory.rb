@@ -1,15 +1,13 @@
+require 'dependency_injector'
+require_relative 'collection_factory'
 module Diaspora
   module Cluster
     module Creator
-      class EdgeCollectionFactory
+      class EdgeCollectionFactory < CollectionFactory
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
-        attr_reader :cluster
-        def initialize(cluster)
-          @cluster = cluster
-        end
-        
-        def build_from(nodes)
+
+        def build_from(nodes = [])
           return @edges if @edges
           nodes.each_with_index do |node, i|
             result = dice.roll
