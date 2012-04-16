@@ -10,4 +10,22 @@ describe AttributeCollectionFactory do
     }
     subject.build_from(['Magic','Trees','Cows']).must_equal(["attr-Magic", "attr-Trees", "attr-Cows"])
   end
+
+  it 'should build from default when empty array is sent' do
+    attribute_builder = lambda {|string|
+      "attr-#{string}"
+    }
+    subject.attribute_builder = attribute_builder
+    expected = AttributeCollectionFactory::DEFAULT_ATTRIBUTE_NAMES.collect {|name| attribute_builder.call(name)}
+    subject.build_from([]).must_equal(expected)
+  end
+
+  it 'should build from default when nil is sent' do
+    attribute_builder = lambda {|string|
+      "attr-#{string}"
+    }
+    subject.attribute_builder = attribute_builder
+    expected = AttributeCollectionFactory::DEFAULT_ATTRIBUTE_NAMES.collect {|name| attribute_builder.call(name)}
+    subject.build_from(nil).must_equal(expected)
+  end
 end
