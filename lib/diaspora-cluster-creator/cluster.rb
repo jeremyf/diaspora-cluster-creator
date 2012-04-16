@@ -14,6 +14,7 @@ module Diaspora
 
         attr_reader :names
         attr_reader :settings
+        attr_reader :attribute_names
 
         def initialize(names = [], attribute_names = [])
           @names = names
@@ -26,6 +27,10 @@ module Diaspora
 
         def each_edge
           edges.each { |edge| yield(edge) }
+        end
+        
+        def each_attribute
+          attributes.each { |attribute| yield(attribute) }
         end
 
         def nodes
