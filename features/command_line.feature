@@ -69,6 +69,7 @@ Scenario: With -h
     --help, -h
   """
 
+@skip_travis
 Scenario Outline: I want files of different formats
   When I run `diaspora-cluster filename=cluster.<FORMAT>`
   Then the following files should exist:

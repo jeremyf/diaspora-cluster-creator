@@ -27,6 +27,12 @@ namespace 'test' do |ns|
   Cucumber::Rake::Task.new('acceptance') do |t|
     t.fork = true
   end
+
+  desc "Run travis tests"
+  Cucumber::Rake::Task.new('travis-acceptance') do |t|
+    t.fork = true
+    t.cucumber_opts = %(--tags ~@skip_travis)
+  end
 end
 
 task('test').clear
@@ -34,3 +40,5 @@ desc "Run all tests"
 task 'test' => %w[test:unit test:integration]
 
 task 'default' => %w[test:unit test:integration test:acceptance]
+
+task 'travis' => %w[test:unit test:integration test:travis-acceptance]
