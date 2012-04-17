@@ -14,17 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "diaspora-cluster-creator"
   gem.require_paths = ["lib"]
   gem.version       = Diaspora::Cluster::Creator::VERSION
-  gem.add_development_dependency "cucumber"
-  gem.add_development_dependency "bundler"
-  gem.add_development_dependency "minitest"
-  gem.add_development_dependency "guard"
-  gem.add_development_dependency 'guard-minitest'
-  gem.add_development_dependency 'guard-bundler'
-  gem.add_development_dependency 'guard-cucumber'
-  gem.add_development_dependency 'growl'
-  gem.add_development_dependency 'debugger'
-  gem.add_development_dependency 'aruba'
-  gem.add_development_dependency 'factory_girl'
   
   gem.add_runtime_dependency "ruby-graphviz"
   gem.add_runtime_dependency "main"
