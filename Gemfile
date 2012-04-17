@@ -17,4 +17,5 @@ group :test do
   gem "minitest"
   gem 'aruba'
   gem 'factory_girl'
+  gem 'rake'
 end
