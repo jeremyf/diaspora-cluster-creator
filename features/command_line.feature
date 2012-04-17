@@ -124,19 +124,6 @@ Scenario: Specify different attributes with prefix override
     C -- D
     D -- E
   """
-
-@wip
-Scenario: Specify different attributes with guarantee
-  When I run `diaspora-cluster attributes="Knights,Dragons,Maidens" guarantee="2 Knights @ 2 and 2 Dragons @ -3" names="Sparta {K1},Athens {K1}"`
-  Then it should pass with output like:
-  """
-  graph Cluster {
-    Sparta \[label = "Sparta
-  K2 D-3 M-?\d"\];
-    Athens \[label = "Athens
-  K2 D-3 M-?\d"\];
-    Sparta -- Athens
-  """
   
 Scenario: Specify different attributes with default
   When I run `diaspora-cluster names="Sparta{M5},Athens{R-5}" attributes="Magic, Religion, Science"`

@@ -1,5 +1,7 @@
 # Diaspora::Cluster::Creator
 
+[![Build Status](https://secure.travis-ci.org/jeremyf/diaspora-cluster-creator.png)](http://travis-ci.org/jeremyf/diaspora-cluster-creator)
+
 Thus far, this is an over-engineered solution that does very little.
 
 I'm using it as a means of pushing out my understanding of cucumber and
