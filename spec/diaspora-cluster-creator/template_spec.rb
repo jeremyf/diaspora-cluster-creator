@@ -42,6 +42,25 @@ describe Template do
   end
   
   describe 'Conversions' do
+    describe 'GraphNode' do
+      it 'should append to_node_args' do
+        object = Object.new
+        self.extend(Conversions)
+        GraphNode(object).to_node_args.must_equal([object.to_s, :label => object.to_s])
+      end
+      it 'should use label as part of args' do
+        object = Object.new
+        def object.label; 'My Label'; end
+        self.extend(Conversions)
+        GraphNode(object).to_node_args.must_equal([object.to_s, :label => 'My Label'])
+      end
+      it 'should not append to_node_args if method already exists' do
+        object = Object.new
+        def object.to_node_args; 'Hello?'; end
+        self.extend(Conversions)
+        GraphNode(object).to_node_args.must_equal("Hello?")
+      end
+    end
     describe 'Legendary' do
       it 'should append to_legend method' do
         object = FactoryGirl.build(:attribute, :to_s => 'Shoe', :prefix => 'S')

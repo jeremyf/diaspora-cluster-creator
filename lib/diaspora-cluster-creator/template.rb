@@ -25,6 +25,13 @@ module Diaspora
           end
           item
         end
+        def GraphNode(item)
+          return item if item.respond_to?(:to_node_args)
+          def item.to_node_args
+            [to_s, :label => (respond_to?(:label) ? label : to_s)]
+          end
+          item
+        end
       end
       class Template
         include Conversions
@@ -56,9 +63,7 @@ module Diaspora
           @canvas.add_nodes('Cluster Legend', :label => Legendary(cluster.attributes).to_legend, :shape => 'box')
 
           cluster.each_node do |node|
-            options = {}
-            options[:label] = (node.respond_to?(:label) ? node.label : node.to_s)
-            @canvas.add_nodes(node.to_s, options)
+            @canvas.add_nodes(*GraphNode(node).to_node_args)
           end
 
           cluster.each_edge do |edge|
