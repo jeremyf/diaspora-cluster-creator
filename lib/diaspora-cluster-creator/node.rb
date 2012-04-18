@@ -13,15 +13,18 @@ module Diaspora
         extend DependencyInjector
         def_injector(:dice) { FateDice.new }
         def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
+        def_injector(:node_attribute_collection_builder) {
+          lambda { |attributes|
+            attributes.collect {|attribute| attribute_builder.call(self,attribute) }
+          }
+        }
 
         attr_reader :cluster, :name, :attributes
         def initialize(cluster, name_with_attribute_values)
           @cluster = cluster
           @attributes = []
           yield(self) if block_given?
-          cluster.attributes.each do |attribute|
-            @attributes << attribute_builder.call(self,attribute)
-          end
+          @attributes = node_attribute_collection_builder.call(cluster.attributes)
           set_name_and_attribute_values(name_with_attribute_values.to_s)
         end
         
