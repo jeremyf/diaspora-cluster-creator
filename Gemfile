@@ -11,6 +11,7 @@ group :development do
   gem 'growl'
   gem 'debugger'
   gem 'simplecov', :require => false
+  gem 'simplecov-gem-adapter'
 end
 
 group :test do

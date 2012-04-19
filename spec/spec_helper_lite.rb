@@ -1,6 +1,7 @@
 if ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start
+  require 'simplecov-gem-adapter'
+  SimpleCov.start 'gem'
 end
 
 gem 'minitest' # demand gem version
