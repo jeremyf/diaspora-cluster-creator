@@ -44,35 +44,35 @@ module Diaspora
         end
         
         def to_s
-          canvas.to_s
+          graph.to_s
         end
         def to_dot(filename = 'cluster.dot')
-          canvas.output(:dot => "#{filename}")
+          graph.output(:dot => "#{filename}")
         end
         def to_png(filename = 'cluster.png')
-          canvas.output(:png => "#{filename}")
+          graph.output(:png => "#{filename}")
         end
         def to_svg(filename = 'cluster.svg')
-          canvas.output(:svg => "#{filename}")
+          graph.output(:svg => "#{filename}")
         end
         protected
-        def canvas
-          return @canvas if @canvas
-          @canvas = GraphViz.new(cluster.to_s, :type => :graph )
+        def graph
+          return @graph if @graph
+          @graph = GraphViz.new(cluster.to_s, :type => :graph )
           
-          @canvas.add_nodes('Cluster Legend', :label => Legendary(cluster.attributes).to_legend, :shape => 'box')
+          @graph.add_nodes('Cluster Legend', :label => Legendary(cluster.attributes).to_legend, :shape => 'box')
 
           cluster.each_node do |node|
-            @canvas.add_nodes(*GraphNode(node).to_node_args)
+            @graph.add_nodes(*GraphNode(node).to_node_args)
           end
 
           cluster.each_edge do |edge|
             to = edge[0]
             from = edge[1]
-            @canvas.add_edges(to.to_s, from.to_s)
+            @graph.add_edges(to.to_s, from.to_s)
           end
 
-          @canvas
+          @graph
         end
       end
     end
