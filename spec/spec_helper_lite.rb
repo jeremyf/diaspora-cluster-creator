@@ -1,3 +1,8 @@
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start
+end
+
 gem 'minitest' # demand gem version
 require 'minitest/spec'
 require 'minitest/autorun'

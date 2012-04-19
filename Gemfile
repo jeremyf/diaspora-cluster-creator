@@ -10,6 +10,7 @@ group :development do
   gem 'guard-cucumber'
   gem 'growl'
   gem 'debugger'
+  gem 'simplecov', :require => false
 end
 
 group :test do
