@@ -10,8 +10,6 @@ group :development do
   gem 'guard-cucumber'
   gem 'growl'
   gem 'debugger'
-  gem 'simplecov', :require => false
-  gem 'simplecov-gem-adapter'
 end
 
 group :test do
@@ -20,4 +18,6 @@ group :test do
   gem 'aruba'
   gem 'factory_girl'
   gem 'rake'
+  gem 'simplecov', :require => false
+  gem 'simplecov-gem-adapter'
 end

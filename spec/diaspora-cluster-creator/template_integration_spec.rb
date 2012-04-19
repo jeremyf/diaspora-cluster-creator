@@ -1,5 +1,6 @@
-require_relative '../spec_helper_lite'
+require_relative '../spec_helper_integration'
 require 'template'
+
 
 describe Template do
   subject { Template.new(cluster) }
