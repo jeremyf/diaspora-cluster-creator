@@ -41,6 +41,10 @@ describe Node do
       subject.knights = 3
       subject.knights.must_equal(3)
     end
+    
+    it 'should have #to_i' do
+      subject.to_i.must_equal cluster.attributes.inject(0) {|m,a| m += a.value}
+    end
   end
 
   describe '#initialize with some attributes' do
