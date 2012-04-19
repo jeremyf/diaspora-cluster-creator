@@ -11,11 +11,15 @@ module Diaspora
     module Creator
       class Node
         extend DependencyInjector
-        def_injector(:dice) { FateDice.new }
         def_injector(:attribute_builder) { NodeAttribute.public_method(:new) }
         def_injector(:node_attribute_collection_builder) {
           lambda { |attributes|
             attributes.collect {|attribute| attribute_builder.call(self,attribute) }
+          }
+        }
+        def_injector(:name_and_attribute_value_extracter) {
+          lambda {|encoded_name_and_attribute_value|
+            set_name_and_attribute_values(encoded_name_and_attribute_value.to_s)
           }
         }
 
@@ -25,7 +29,7 @@ module Diaspora
           @attributes = []
           yield(self) if block_given?
           @attributes = node_attribute_collection_builder.call(cluster.attributes)
-          set_name_and_attribute_values(name_with_attribute_values.to_s)
+          @name = name_and_attribute_value_extracter.call(name_with_attribute_values)
         end
         
         def method_missing(method_name, *args, &block)
@@ -60,6 +64,7 @@ module Diaspora
           /^(?<name>[^(?:\[|\{)]*)(?:(?:\[|\{)(?<encoded_attributes>[^(?:\]|\})]*)(?:\]|\}))?$/ =~ name_with_attribtes
           @name = name.strip
           extract_encoded_attributes(encoded_attributes)
+          @name
         end
         def extract_encoded_attributes(encoded_attributes)
           if encoded_attributes
