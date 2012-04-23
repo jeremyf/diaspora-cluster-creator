@@ -11,9 +11,14 @@ module Diaspora
         ].freeze
         extend DependencyInjector
         def_injector(:attribute_builder) { Attribute.public_method(:new) }
-        
+
         def build_from(names = [])
-          from_these_names = (!names.nil? && names.any?) ? names : DEFAULT_ATTRIBUTE_NAMES
+          from_these_names =
+          if (!names.nil? && names.any?)
+            names
+          else
+            DEFAULT_ATTRIBUTE_NAMES
+          end
           from_these_names.each_with_object([]) do |name, mem|
             mem << attribute_builder.call(name)
           end
@@ -22,4 +27,3 @@ module Diaspora
     end
   end
 end
-

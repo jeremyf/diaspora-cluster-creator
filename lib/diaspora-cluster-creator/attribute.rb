@@ -11,15 +11,15 @@ module Diaspora
           end
           @name = name.gsub(/[\(\)]/,'')
         end
-        
+
         def to_s
           name
         end
-        
+
         def to_sym
           name.to_s.gsub(/\W+/,'_').downcase.to_sym
         end
-        
+
         def label
           prefix
         end
