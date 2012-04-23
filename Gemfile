@@ -10,6 +10,7 @@ group :development do
   gem 'guard-cucumber'
   gem 'growl'
   gem 'debugger'
+  gem 'cane'
 end
 
 group :test do
