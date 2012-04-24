@@ -11,6 +11,7 @@ group :development do
   gem 'growl'
   gem 'debugger'
   gem 'cane'
+  gem 'rails_best_practices'
 end
 
 group :test do
