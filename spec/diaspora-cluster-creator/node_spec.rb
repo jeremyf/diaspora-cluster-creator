@@ -36,12 +36,12 @@ describe Node do
     it 'should have #knights method' do
       subject.knights.must_equal 1
     end
-  
+
     it 'should allow #knights to be set' do
       subject.knights = 3
       subject.knights.must_equal(3)
     end
-    
+
     it 'should have #to_i' do
       subject.to_i.must_equal cluster.attributes.inject(0) {|m,a| m += a.value}
     end

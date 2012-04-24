@@ -28,7 +28,7 @@ module Diaspora
         def each_edge
           edges.each { |edge| yield(edge) }
         end
-        
+
         def each_attribute
           attributes.each { |attribute| yield(attribute) }
         end
@@ -40,7 +40,7 @@ module Diaspora
         def edges
           @edges ||= edge_collection_builder.call
         end
-        
+
         def attributes
           @attributes ||= attribute_collection_builder.call
         end

@@ -42,7 +42,7 @@ module Diaspora
           raise RuntimeError unless cluster.respond_to?(:attributes)
           @cluster = cluster
         end
-        
+
         def to_s
           graph.to_s
         end
@@ -59,7 +59,7 @@ module Diaspora
         def graph
           return @graph if @graph
           @graph = GraphViz.new(cluster.to_s, :type => :graph )
-          
+
           @graph.add_nodes('Cluster Legend', :label => Legendary(cluster.attributes).to_legend, :shape => 'box')
 
           cluster.each_node do |node|

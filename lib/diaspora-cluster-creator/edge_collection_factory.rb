@@ -27,11 +27,11 @@ module Diaspora
         def connect(node, *others)
           @edges ||= []
           others.flatten.compact.each do |other|
-            @edges << [node,other] 
+            @edges << [node,other]
           end
           @edges
         end
-        
+
       end
     end
   end

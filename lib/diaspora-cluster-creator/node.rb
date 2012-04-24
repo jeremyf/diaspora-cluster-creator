@@ -31,7 +31,7 @@ module Diaspora
           @attributes = node_attribute_collection_builder.call(cluster.attributes)
           @name = name_and_attribute_value_extracter.call(name_with_attribute_values)
         end
-        
+
         def method_missing(method_name, *args, &block)
           if attributes && attribute = attributes.detect {|a| a.to_sym == method_name.to_sym }
             attribute.value
@@ -41,7 +41,7 @@ module Diaspora
             super
           end
         end
-        
+
         include Comparable
         def <=>(other)
           to_i <=> other.to_i

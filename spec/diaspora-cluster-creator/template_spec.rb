@@ -40,7 +40,7 @@ describe Template do
       )
     end
   end
-  
+
   describe 'Conversions' do
     describe 'GraphNode' do
       it 'should append to_node_args' do

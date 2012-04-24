@@ -4,7 +4,7 @@ require 'node_collection_factory'
 describe NodeCollectionFactory do
   subject { NodeCollectionFactory.new(context) }
   let(:context) { Object.new }
-  
+
   describe '#build_from(names)' do
     it 'should build the nodes then verify them' do
       list_of_names = ['a']
@@ -15,7 +15,7 @@ describe NodeCollectionFactory do
 
       guarantor = MiniTest::Mock.new
       guarantor.expect(:call, 'guaranteed!', [expected_output])
-      
+
       subject.node_guarantor = guarantor
       subject.node_builder = node_builder
 
