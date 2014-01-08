@@ -9,7 +9,6 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-cucumber'
   gem 'growl'
-  gem 'debugger'
   gem 'cane'
   gem 'rails_best_practices'
 end
